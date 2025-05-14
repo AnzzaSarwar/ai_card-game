@@ -355,6 +355,8 @@ height: 300px;
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
+  padding: 2.7rem;
+
 }
 
 .info-box {
@@ -369,7 +371,7 @@ height: 300px;
     #29193c;
   border: 1px solid white;
   border-radius: 20px;
-  padding: 2.5rem;
+  padding: 2.7rem;
 }
 
 .info-header {

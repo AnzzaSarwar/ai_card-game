@@ -15,6 +15,8 @@ export default function Editmanually() {
   
   return (
 <>
+    <div className="rules-page">
+
       {/* Heading */}
       <div className="page-heading">
         <h2>Edit Rules</h2>
@@ -179,6 +181,8 @@ export default function Editmanually() {
             <span>Apply Selected Rules</span>
           </button>
         </div>
+      </div>
+
       </div>
 </>  )
 }
