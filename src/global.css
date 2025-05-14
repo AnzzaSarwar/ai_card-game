@@ -76,7 +76,7 @@ input[type='number']::-webkit-inner-spin-button {
 
 /* Header Styles */
 .dashboard-header {
-  background-image: url(/public/Graphic\ Side.png);  
+  background-image: url('public/Graphic Side.png');  
   padding: 8%;
   position: relative;
   overflow: hidden;
@@ -238,13 +238,12 @@ height: 300px;
 
 /* ############################ PAGE-  RULES GENERATOR ############################ */
 .rules-page {
-  max-width: 95%;
+ max-width: 95%;
   width: 1281px;
-  margin: 52px auto;
+  margin: 20px ;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  padding: 0 10px;
 }
 
 .page-heading {
@@ -274,7 +273,7 @@ height: 300px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 100%;
+  width: 130%;
 }
 
 .input-box {
