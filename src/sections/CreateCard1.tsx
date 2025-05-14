@@ -1,12 +1,15 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { DashboardContent } from "src/layouts/dashboard";
-import { Button, Grid } from "@mui/material";
-import CreateCardForm from "src/components/CreateCardForm";
-import GameCard from "src/components/gamecard";
-import Modal from '@mui/material/Modal';
-import { Link } from "react-router-dom";
 import React from "react";
+import { Link } from "react-router-dom";
+
+import Box from "@mui/material/Box";
+import Modal from '@mui/material/Modal';
+import { Grid, Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
+
+import { DashboardContent } from "src/layouts/dashboard";
+
+import GameCard from "src/components/gamecard";
+import CreateCardForm from "src/components/CreateCardForm";
 
 
 export default function CreateCard1() {
@@ -351,7 +354,7 @@ const handleClose = () => setOpen(false);
     >
       {/* Small Icon before text */}
       <img
-        src={'/Group.png'} // put your icon image path here
+        src="/Group.png" // put your icon image path here
         alt="icon"
         style={{
           width: '20px',

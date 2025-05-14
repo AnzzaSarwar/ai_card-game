@@ -14,8 +14,7 @@ export default function Editmanually() {
     };
   
   return (
-<>
-    <div className="rules-page">
+<div className="rules-page">
 
       {/* Heading */}
       <div className="page-heading">
@@ -183,6 +182,5 @@ export default function Editmanually() {
         </div>
       </div>
 
-      </div>
-</>  )
+      </div>  )
 }
