@@ -76,7 +76,7 @@ input[type='number']::-webkit-inner-spin-button {
 
 /* Header Styles */
 .dashboard-header {
-  background-image: url('public/Graphic Side.png');  
+background-image: url("/Graphic Side.png"); 
   padding: 8%;
   position: relative;
   overflow: hidden;

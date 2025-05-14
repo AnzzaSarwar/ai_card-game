@@ -92,14 +92,14 @@ export default function Projects() {
   }
 
   return (
-    <>
+      <>
       <title>{`Project - ${CONFIG.appName}`}</title>
       <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
           alignItems={{ xs: 'stretch', md: 'center' }}
           justifyContent="space-between"
-          spacing={1}
+          spacing={2}
           mt={3}
           mb={4}
         >
@@ -172,15 +172,15 @@ export default function Projects() {
         >
           My Projects
         </Typography>
-<Grid container spacing={2}>
-  {gameCards.map((game, index) => (
-<Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+
+        <Grid container spacing={4}>
+          {gameCards.map((game, index) => (
+            <Grid  key={index}>
               <Card
                 sx={{
                   borderRadius: '16px',
                   boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
                   width: '280px',
-                  display: 'flex',
                   flexDirection: 'column',
                   border: '1px solid #534e54',
                   backgroundColor: '#2b1233',
@@ -232,6 +232,6 @@ export default function Projects() {
           ))}
         </Grid>
       </Box>
-    </>
+      </>
   );
 }
