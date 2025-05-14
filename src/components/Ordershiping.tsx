@@ -93,8 +93,7 @@ export default function Ordershiping() {
               onIncrease={handleIncreaseBox}
             />
 
-            <hr style={{ borderColor: '#87739E' }} />
-
+       <br />
             {/* Math Adventure Cards */}
             <ProductItem
               title="Math Adventure Cards"
@@ -105,7 +104,6 @@ export default function Ordershiping() {
               onIncrease={handleIncreaseCards}
             />
 
-            <hr style={{ borderColor: '#87739E' }} />
 
             {/* Material Finish, Card Stock, Box Type */}
             <Box display="flex" flexDirection="column" gap={2}>

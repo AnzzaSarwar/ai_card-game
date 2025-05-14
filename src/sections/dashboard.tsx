@@ -46,8 +46,8 @@ export default function Dashboard() {
   ];
 
   return (
-    <DashboardContent disablePadding>
-      <Box className="dashboard-container">
+    <DashboardContent disablePadding sx={{margin:0, marginLeft:15, }} >
+      <Box className="dashboard-container" >
         {/* Header */}
         <Box className="dashboard-header">
           <Typography variant="h2" className="dashboard-subtitle">
