@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
+import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -202,33 +202,38 @@ export function CreateCard() {
               </Box>
             </Box>
 
-            {/* Cards per Deck Field */}
-            <Box sx={{ width: { xs: '100%', md: '50%' }, mb: 6 }}>
-              <Typography variant="h6" sx={{ mb: 1 }}>
-                How many Cards per Deck
-              </Typography>
-              <TextField
-                fullWidth
-                label="30"
-                variant="outlined"
-                InputLabelProps={{ style: { color: '#ccc' } }}
-                InputProps={{
-                  style: { color: '#fff' },
-                  endAdornment: (
-                    <>
-                      <Box sx={{ width: 24 }} />
-                      <ArrowDropDownIcon />
-                    </>
-                  ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: '#666' },
-                    '&:hover fieldset': { borderColor: '#999' },
-                  },
-                }}
-              />
-            </Box>
+          {/* Cards per Deck Field */}
+<Box sx={{ width: { xs: '100%', md: '50%' }, mb: 6 }}>
+  <Typography variant="h6" sx={{ mb: 1 }}>
+    How many Cards per Deck
+  </Typography>
+  <FormControl fullWidth variant="outlined">
+    <InputLabel sx={{ color: '#ccc' }}>30</InputLabel>
+    <Select
+      defaultValue=""
+      label="30"
+      IconComponent={ArrowDropDownIcon}
+      inputProps={{
+        style: { color: '#fff' },
+      }}
+      sx={{
+        color: '#fff',
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#666',
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#999',
+        },
+      }}
+    >
+      <MenuItem value="20">20</MenuItem>
+      <MenuItem value="30">30</MenuItem>
+      <MenuItem value="40">40</MenuItem>
+      <MenuItem value="52">52</MenuItem>
+      <MenuItem value="78">78</MenuItem>
+    </Select>
+  </FormControl>
+</Box>
           </Box>
         </Box>
 
@@ -238,7 +243,7 @@ export function CreateCard() {
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             alignItems: { md: 'flex-start' },
-            gap: 5,
+            gap: 2,
           }}
         >
           {/* Create Tuck Box Button */}
@@ -265,48 +270,50 @@ export function CreateCard() {
             </Box>
           </Box>
 
-          {/* Additional Cards per Deck Field */}
-          <Box
-            sx={{
-              width: { xs: '100%', sm: '80%', md: '60%', lg: '50%' },
-              mx: 'auto', // center it horizontally
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                mb: 1,
-                fontSize: { xs: '1rem', md: '1.25rem' },
-              }}
-            >
-              Card Block
-            </Typography>
+        
+<Box
+  sx={{
+    width: { xs: '100%', sm: '80%', md: '60%', lg: '50%' },
+    mx: 'auto', // center it horizontally
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  }}
+>
+  <Typography
+    variant="h6"
+    sx={{
+      mb: 1,
+      fontSize: { xs: '1rem', md: '1.25rem' },
+    }}
+  >
+    Card Block
+  </Typography>
 
-            <TextField
-              fullWidth
-              label="common block"
-              variant="outlined"
-              InputLabelProps={{ style: { color: '#ccc' } }}
-              InputProps={{
-                style: { color: '#fff' },
-                endAdornment: (
-                  <>
-                    <Box sx={{ width: 24 }} />
-                    <ArrowDropDownIcon />
-                  </>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': { borderColor: '#666' },
-                  '&:hover fieldset': { borderColor: '#999' },
-                },
-              }}
-            />
-          </Box>
+  <FormControl fullWidth variant="outlined">
+    <InputLabel sx={{ color: '#ccc' }}>common block</InputLabel>
+    <Select
+      defaultValue=""
+      label="common block"
+      IconComponent={ArrowDropDownIcon}
+      inputProps={{
+        style: { color: '#fff' },
+      }}
+      sx={{
+        color: '#fff',
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#666',
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#999',
+        },
+      }}
+    >
+      <MenuItem value="common">common back</MenuItem>
+      <MenuItem value="different">different backs</MenuItem>
+    </Select>
+  </FormControl>
+</Box>
         </Box>
 
         {/* Image Gallery */}

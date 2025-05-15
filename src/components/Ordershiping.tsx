@@ -93,7 +93,6 @@ export default function Ordershiping() {
               onIncrease={handleIncreaseBox}
             />
 
-       <br />
             {/* Math Adventure Cards */}
             <ProductItem
               title="Math Adventure Cards"
