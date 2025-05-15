@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
-import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import FolderIcon from '@mui/icons-material/Folder';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Select, MenuItem, TextField, InputLabel } from '@mui/material';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -88,32 +88,29 @@ export function CreateCard() {
           </Box>
 
           {/* Right Field */}
-          <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 280 } }}>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              Card Size
-            </Typography>
-            <TextField
-              fullWidth
-              label="63|88mm"
-              variant="outlined"
-              InputLabelProps={{ style: { color: '#ccc' } }}
-              InputProps={{
-                style: { color: '#fff' },
-                endAdornment: (
-                  <>
-                    <Box sx={{ width: 24 }} />
-                    <ArrowDropDownIcon />
-                  </>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': { borderColor: '#666' },
-                  '&:hover fieldset': { borderColor: '#999' },
-                },
-              }}
-            />
-          </Box>
+         <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 280 } }}>
+  <Typography variant="h6" sx={{ mb: 1 }}>
+    Card Size
+  </Typography>
+  <FormControl fullWidth variant="outlined">
+    <InputLabel sx={{ color: '#ccc' }}>Card Size</InputLabel>
+    <Select
+      defaultValue=""
+      label="Card Size"
+      sx={{
+        color: '#fff',
+        '& .MuiOutlinedInput-notchedOutline': { borderColor: '#666' },
+        '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#999' },
+      }}
+      IconComponent={ArrowDropDownIcon}
+    >
+      <MenuItem value="53x88mm">53x88mm (Bridge)</MenuItem>
+      <MenuItem value="63x88mm">63x88mm (Poker)</MenuItem>
+      <MenuItem value="70x120mm">70x120mm (Tarot)</MenuItem>
+    </Select>
+  </FormControl>
+</Box>
+
         </Box>
 
         {/* Card Color Theme Section */}
