@@ -8,6 +8,8 @@
 @import '@fontsource/barlow/700.css';
 @import '@fontsource/barlow/800.css';
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 /** **************************************
 * Plugins
 *************************************** */
@@ -37,7 +39,7 @@ body,
         color: #fff !important;
   margin: 0;
   padding: 0;
-  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 body{
 margin-right:0px ;}
@@ -631,10 +633,12 @@ height: 300px;
 /* Text */
 .signin-heading {
   color: white;
-  font-weight: 600;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  /* font-size: clamp(2rem, 5vw, 4rem); */
+  font-size: 60px;
   text-align: center;
   z-index: 2;
+  line-height: 1.2;
   margin-top: 8rem;
 }
 

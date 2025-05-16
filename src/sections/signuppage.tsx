@@ -23,8 +23,7 @@ export default function Signuppage() {
         <div className="signin-left">
           <img src={logo} alt="Logo" className="signin-logo" />
           <h1 className="signin-heading">
-      <span>Design Your <strong>Card</strong></span><br />
-          <strong><span>Game</span></strong>
+      <span>Design Your <strong>Card Game</strong></span>
     </h1>
           <p className="signin-subheading">
             Design Your Cards Game: Craft Mechanics<br /> With <strong>AI</strong> to bring it to Life.
