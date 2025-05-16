@@ -44,8 +44,8 @@ const primaryFont = setFont(themeConfig.fontFamily.primary);
 const secondaryFont = setFont(themeConfig.fontFamily.secondary);
 
 export const typography: TypographyVariantsOptions = {
-  fontFamily: 'Gothic A1',
-  fontSecondaryFamily: 'Montserrat',
+  fontFamily: primaryFont,
+  fontSecondaryFamily: secondaryFont,
   // fontFamily: primaryFont,
   // fontSecondaryFamily: secondaryFont,
   fontWeightLight: '300',
@@ -54,7 +54,7 @@ export const typography: TypographyVariantsOptions = {
   fontWeightSemiBold: '600',
   fontWeightBold: '700',
   h1: {
-    fontFamily: 'Montserrat',
+    fontFamily: primaryFont,
     fontWeight: 700,
     fontSize: '8vh',
     lineHeight: 1.2,
@@ -69,7 +69,7 @@ export const typography: TypographyVariantsOptions = {
     // fontWeight: 800,
     // lineHeight: 64 / 48,
     // fontSize: pxToRem(32),
-    fontFamily: 'Montserrat',
+    fontFamily: primaryFont,
     fontWeight: 500,
     fontSize: '5vh',
     lineHeight: 1.2,
@@ -113,7 +113,7 @@ export const typography: TypographyVariantsOptions = {
   body1: {
     // lineHeight: 1.5,
     // fontSize: pxToRem(16),
-    fontFamily: 'Gothic A1',
+    fontFamily: primaryFont,
     fontWeight: 400,
     fontSize: '2vh',
     lineHeight: 1.5,
@@ -137,7 +137,7 @@ export const typography: TypographyVariantsOptions = {
     lineHeight: 24 / 14,
     // fontSize: pxToRem(14),
     // textTransform: 'unset',
-    fontFamily: 'Gothic A1',
+    fontFamily: secondaryFont,
     fontWeight: 600,
     fontSize: '2vh',
     textTransform: 'unset',

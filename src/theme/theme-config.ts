@@ -31,7 +31,7 @@ export const themeConfig: ThemeConfig = {
    *************************************** */
   fontFamily: {
     primary: 'Montserrat',
-    secondary: 'Montserrat',
+    secondary: 'Gothic A1',
     // primary: 'DM Sans Variable',
     // secondary: 'Barlow',
   },
