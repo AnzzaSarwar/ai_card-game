@@ -8,6 +8,8 @@
 @import '@fontsource/barlow/700.css';
 @import '@fontsource/barlow/800.css';
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 /** **************************************
 * Plugins
 *************************************** */
@@ -37,7 +39,7 @@ body,
         color: #fff !important;
   margin: 0;
   padding: 0;
-  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 body{
 margin-right:0px ;}
@@ -351,14 +353,12 @@ height: 300px;
   max-width: 342px;
   height: 80px;
   border-radius: 20px;
-  background: linear-gradient(
-    to right,
-    rgba(19, 158, 188, 0.46),
-    rgba(170, 30, 205, 0.46)
-  );
-  color: white;
-  font-size: 1.125rem;
+    background-color: #8a0303; /* Crimson */
+    
+  font-size:2vh;
   font-weight: 600;
+    color: white;
+
   cursor: pointer;
   align-self: flex-end;
 }
@@ -432,23 +432,24 @@ height: 300px;
   padding: 10px 20px;
   gap: 10px;
   border-radius: 10px;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 2vh;
+  font-weight: 600;
   line-height: 24px;
   color: rgba(255, 255, 255, 0.88);
   white-space: nowrap; /* Prevent text from breaking into new line */
 }
 
 .edit-button {
-  background-color: #87739e;
-}
+  background-color: #8a0303; /* Crimson */
+    
+  font-size:2vh;
+  font-weight: 600;}
 
 .apply-button {
-  background: linear-gradient(
-    90.54deg,
-    rgba(19, 158, 188, 0.46) 36.69%,
-    rgba(170, 30, 205, 0.46) 91.01%
-  );
+    background-color: #8a0303; /* Crimson */
+    
+  font-size:2vh;
+  font-weight: 600;
 }
 
 /* RESPONSIVENESS */
@@ -647,10 +648,12 @@ height: 300px;
 /* Text */
 .signin-heading {
   color: white;
-  font-weight: 600;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  /* font-size: clamp(2rem, 5vw, 4rem); */
+  font-size: 60px;
   text-align: center;
   z-index: 2;
+  line-height: 1.2;
   margin-top: 8rem;
 }
 

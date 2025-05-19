@@ -30,8 +30,10 @@ export const themeConfig: ThemeConfig = {
    * Typography
    *************************************** */
   fontFamily: {
-    primary: 'DM Sans Variable',
-    secondary: 'Barlow',
+    primary: 'Montserrat',
+    secondary: 'Gothic A1',
+    // primary: 'DM Sans Variable',
+    // secondary: 'Barlow',
   },
   /** **************************************
    * Palette

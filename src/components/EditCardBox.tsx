@@ -45,7 +45,7 @@ const CardEditor = () => {
           to="/PDFExport"
           variant="contained"
           sx={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#8a0303',
             textTransform: 'none',
             borderRadius: '10px',
             border: '2px solid #139EBC',

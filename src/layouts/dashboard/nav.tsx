@@ -48,6 +48,7 @@ export function NavDesktop({
         height: 1,
         display: 'none',
         color: '#fff',
+        fontFamily: 'Montserrat',
         bgcolor: '#150D1F',
         position: 'fixed',
         flexDirection: 'column',

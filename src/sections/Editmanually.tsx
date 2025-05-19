@@ -18,7 +18,7 @@ export default function Editmanually() {
 
       {/* Heading */}
       <div className="page-heading">
-        <h2>Edit Rules</h2>
+        <h1>Edit Rules</h1>
         <p>Generate game rules instantly using AI suggestions</p>
       </div>
 

@@ -64,7 +64,7 @@ export function Notifications() {
 
   return (
     <DashboardContent maxWidth="xl" sx={{ color: '#fff' }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
+      <Typography variant="h4" sx={{ mb: 3 }} className='heading'>
         Notifications
       </Typography>
 

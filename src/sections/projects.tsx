@@ -1,6 +1,5 @@
-import type { SetStateAction } from 'react';
 
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
@@ -158,18 +157,9 @@ export default function Projects() {
           />
         </Stack>
 
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: { xs: '1.25rem', sm: '1.5rem' },
-            fontWeight: 'bold',
-            mb: 2,
-            color: 'white',
-            textAlign: { xs: 'center', md: 'left' },
-          }}
-        >
+        <h1 className='mb-2' >
           My Projects
-        </Typography>
+        </h1>
 
         <Grid container spacing={4}>
           {gameCards.map((game, index) => (

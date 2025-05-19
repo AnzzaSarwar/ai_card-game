@@ -50,9 +50,9 @@ export default function Dashboard() {
       <Box className="dashboard-container" >
         {/* Header */}
         <Box className="dashboard-header">
-          <Typography variant="h2" className="dashboard-subtitle">
+          <h1 className="dashboard-subtitle">
             Dashboard
-          </Typography>
+          </h1>
         </Box>
 
         {/* Main Content */}
