@@ -46,13 +46,23 @@ export default function Dashboard() {
   ];
 
   return (
-    <DashboardContent disablePadding sx={{margin:0, marginLeft:15, }} >
+    <DashboardContent>
       <Box className="dashboard-container" >
         {/* Header */}
         <Box className="dashboard-header">
-          <h1 className="dashboard-subtitle">
+          {/* <h1 className="dashboard-subtitle">
             Dashboard
-          </h1>
+          </h1> */}
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 700,
+              color: 'white',
+              mb: 2,
+            }}
+          >
+            Dashboard
+          </Typography>
         </Box>
 
         {/* Main Content */}

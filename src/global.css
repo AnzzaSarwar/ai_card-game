@@ -67,6 +67,9 @@ ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
+  font-size: 36px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 }
 
 input[type='number'] {
@@ -97,7 +100,7 @@ background-image: url("/Graphic Side.png");
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  width: 110%;
+  width: 100%;
 height: 300px;
 
 
@@ -373,7 +376,7 @@ height: 300px;
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
-  padding: 2.7rem;
+  /* padding: 2.7rem; */
 
 }
 
