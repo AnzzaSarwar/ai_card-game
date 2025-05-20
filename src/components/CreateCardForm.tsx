@@ -31,10 +31,9 @@ export default function CreateCardForm() {
       maxWidth: '900px',
     }}>
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 2 }}>
+        <h1 className="mb-2">
           Create Your Card Design
-        </Typography>
-      </Box>
+</h1>      </Box>
 
       {/* Main Form Box - Keep all your existing form code here */}
       <Box
@@ -381,14 +380,14 @@ export default function CreateCardForm() {
                   <Box
                     sx={{
                       width: '100%',
-                      background: 'linear-gradient(90deg,#487e96, #482252)',
+                      background: '#8a0303',
                       border: '2px solid #00bfff',
                       color: '#fff',
                       padding: '15px',
                       borderRadius: '20px',
                       textAlign: 'center',
                       fontWeight: 600,
-                      fontSize: '16px',
+                      fontSize: '2vh',
                       cursor: 'pointer',
                       '&:hover': {
                         background: '#005fcc',

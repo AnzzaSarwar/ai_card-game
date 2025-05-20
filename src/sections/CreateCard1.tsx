@@ -335,14 +335,14 @@ const handleClose = () => setOpen(false);
     <Button
       variant="contained"
       sx={{
-        backgroundColor: '#2f354f',
+        backgroundColor: '#8a0303',
         width: 400,
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: 600,
         borderRadius: '6px',
         padding: '14px',
         ml: 2,
-        fontSize: '0.8rem',
+        fontSize: '2vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -389,9 +389,9 @@ const handleClose = () => setOpen(false);
         key={item.label}
         variant="contained"
         sx={{
-          backgroundColor: '#9f7bb5',
+          backgroundColor: '#8a0303',
           color: 'white',
-          fontWeight: 'bold',
+          fontWeight: 600,
           borderRadius: '9px',
           width: 170,
           mt: 1,
@@ -519,8 +519,7 @@ const handleClose = () => setOpen(false);
     {/* Close Button */}
     <Button onClick={handleClose} variant="contained" sx={{
       mt: 3,
-      backgroundColor: '#ffcc00',
-      color: '#000',
+      backgroundColor: '#8a0303',
       fontWeight: 'bold',
       borderRadius: '10px',
       padding: '8px 24px',

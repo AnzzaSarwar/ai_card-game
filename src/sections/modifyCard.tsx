@@ -37,9 +37,9 @@ export function ModifyCards() {
 
   return (
     <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
-      <Typography variant="h4" sx={{ mb: 5 }}>
+      <h1>
         Modify Cards
-      </Typography>
+      </h1>
 
       {/* Buttons Section */}
       <Box
@@ -58,7 +58,9 @@ export function ModifyCards() {
           color="inherit"
           startIcon={<Iconify icon="solar:eye-bold" />}
           sx={{
-            backgroundColor: '#87739E',
+             bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
             '&:hover': { backgroundColor: '#87739E' },
             flexShrink: 0,
           }}
@@ -72,12 +74,10 @@ export function ModifyCards() {
           color="inherit"
           startIcon={<Iconify icon="solar:cart-3-bold" />}
           sx={{
-            backgroundImage: `
-              linear-gradient(0deg, #87739E, #87739E),
-              linear-gradient(90.54deg, rgba(19, 158, 188, 0.46) 36.69%, rgba(170, 30, 205, 0.46) 91.01%)
-            `,
+            bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
             backgroundBlendMode: 'overlay',
-            backgroundColor: 'transparent',
             '&:hover': {
               backgroundImage: `
                 linear-gradient(0deg, #87739E, #87739E),
@@ -99,8 +99,9 @@ export function ModifyCards() {
             border: '2px solid',
             borderImageSlice: 1,
             borderImageSource: `linear-gradient(90.54deg, #139EBC 36.69%, #AA1ECD 91.01%)`,
-            backgroundColor: 'transparent',
-            color: '#fff',
+ bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,            color: '#fff',
             '&:hover': {
               backgroundColor: 'rgba(255,255,255,0.05)',
             },

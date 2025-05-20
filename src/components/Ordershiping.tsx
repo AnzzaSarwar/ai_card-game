@@ -180,11 +180,12 @@ export default function Ordershiping() {
               fullWidth
               sx={{
                 mt: 4,
-                background: 'linear-gradient(90deg, #139EBC 0%, #AA1ECD 100%)',
+                background: '#8a0303',
                 color: 'white',
                 borderRadius: '50px',
-                fontWeight: 'bold',
+                fontWeight: 600,
                 border: '1px solid #FFFFFF',
+                fontSize:'2vh',
                 textTransform: 'none',
                 py: 1.5,
                 '&:hover': {
@@ -345,10 +346,10 @@ export default function Ordershiping() {
                 onClick={handlePlaceOrder}
                 sx={{
                   mt: 2,
-                  background: 'linear-gradient(90deg, #139EBC 0%, #AA1ECD 100%)',
+                  background: '#8a0303',
                   color: 'white',
-                  fontWeight: 700,
-                  fontSize: '16px',
+                  fontWeight: 600,
+                  fontSize: '2vh',
                   borderRadius: '10px',
                   p: 1.5,
                   fontFamily: 'Roboto, sans-serif',
@@ -444,7 +445,7 @@ export default function Ordershiping() {
             variant="contained"
             onClick={handleOpenTrackModal}
             sx={{
-              background: '#2563EB',
+              background: '#8a0303',
               color: 'white',
               fontWeight: 'bold',
               borderRadius: '15px',
@@ -464,7 +465,7 @@ export default function Ordershiping() {
             variant="contained"
             onClick={handleCloseSuccessModal}
             sx={{
-              background: '#252A41',
+              background: '#8a0303',
               color: 'white',
               fontWeight: 'bold',
               borderRadius: '15px',
@@ -484,7 +485,7 @@ export default function Ordershiping() {
             variant="contained"
             onClick={handleCloseSuccessModal}
             sx={{
-              background: 'linear-gradient(90deg, #139EBC 0%, #AA1ECD 100%)',
+              background: '#8a0303',
               color: 'white',
               fontWeight: 'bold',
               borderRadius: '15px',
@@ -733,10 +734,10 @@ export default function Ordershiping() {
                 fullWidth
                 sx={{
                   mt: 1,
-                  background: 'linear-gradient(90deg, #139EBC 0%, #AA1ECD 100%)',
+                  background: '#8a0303',
                   color: 'white',
-                  fontWeight: 800,
-                  fontSize: '20px',
+                  fontWeight: 600,
+                  fontSize: '2vh',
                   borderRadius: '8px',
                   p: 2,
                   fontFamily: 'Roboto, sans-serif',

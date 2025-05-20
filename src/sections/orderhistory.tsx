@@ -71,7 +71,7 @@ export function OrderHistory() {
   return (
     <Box sx={{ px: 3, py: 4, height: '100%' }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4" sx={{ color: '#fff' }}>Order History</Typography>
+        <h1 >Order History</h1>
       </Stack>
 
       <Card

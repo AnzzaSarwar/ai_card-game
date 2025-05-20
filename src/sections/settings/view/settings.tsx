@@ -100,7 +100,7 @@ export function Settings() {
     >
       {/* Header */}
       <Box mb={8} mr={5}>
-        <Typography variant="h2" >Setting</Typography>
+        <Typography variant="h2" className='heading' >Setting</Typography>
         <Typography variant="subtitle1" sx={{ color: '#bbb' }}>
           Customize User Experience And Manage Platform Preferences.
         </Typography>

@@ -50,7 +50,17 @@ export default function Dashboard() {
       <Box className="dashboard-container" >
         {/* Header */}
         <Box className="dashboard-header">
-          <Typography variant="h2" className="dashboard-subtitle">
+          {/* <h1 className="dashboard-subtitle">
+            Dashboard
+          </h1> */}
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 700,
+              color: 'white',
+              mb: 2,
+            }}
+          >
             Dashboard
           </Typography>
         </Box>

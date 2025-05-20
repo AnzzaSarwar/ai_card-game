@@ -14,9 +14,9 @@ export function CreateCard() {
   return (
     <DashboardContent maxWidth="xl" sx={{ color: '#fff' }}>
       <Box sx={{ mb: { xs: 2, md: 4 } }}>
-        <Typography variant="h4" sx={{ mb: 2, fontSize: { xs: '1.5rem', md: '2rem' } }}>
+        <h1 className='mb-2'>
           Create Your Card Design
-        </Typography>
+        </h1>
       </Box>
 
       {/* Main Form Box */}
@@ -455,14 +455,14 @@ export function CreateCard() {
               <Box
                 sx={{
                   width: '100%',
-                  background: 'linear-gradient(90deg,#487e96, #482252)',
+                  background: '#8a0303',
                   border: '2px solid #00bfff',
                   color: '#fff',
                   padding: '20px 20px',
                   borderRadius: '20px',
                   textAlign: 'center',
                   fontWeight: 600,
-                  fontSize: '16px',
+                  fontSize: '2vh',
                   letterSpacing: '0.5px',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',

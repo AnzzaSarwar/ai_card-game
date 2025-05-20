@@ -56,8 +56,9 @@ export default function PDFExport() {
             <Button
               variant="contained"
               sx={{
-                bgcolor: '#87739E',
-                fontSize: '16px',
+                bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
                 px: 2,
                 py: 1,
                 gap: 1,
@@ -70,11 +71,13 @@ export default function PDFExport() {
             <Button
               variant="contained"
               sx={{
-                background: 'linear-gradient(50deg, #139EBC 50%,  #AA1ECD 80%)',
-                fontSize: '16px',
+               
                 px: 2,
                 py: 1,
                 gap: 1,
+                 bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
               }}
             >
               <img src="/solar_art.png" alt="icon" style={{ width: 24, height: 24 }} />
@@ -85,8 +88,10 @@ export default function PDFExport() {
               variant="outlined"
               sx={{
                 borderColor: '#139EBC',
+                 bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
                 color: '#fff',
-                fontSize: '16px',
                 px: 2,
                 py: 1,
                 gap: 1,

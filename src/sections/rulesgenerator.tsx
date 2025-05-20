@@ -10,7 +10,7 @@ export default function RulesGenerator() {
     <div className="rules-page">
       {/* Heading */}
       <div className="page-heading">
-        <h2>AI Rules Generator</h2>
+        <h1>AI Rules Generator</h1>
         <p>Generate game rules instantly using AI suggestions</p>
       </div>
 
