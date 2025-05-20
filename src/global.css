@@ -82,11 +82,11 @@ input[type='number']::-webkit-inner-spin-button {
 
 /* Dashboard Container */
 .dashboard-container {
-  color: white !important;
-  padding: 10px 10px;
+  margin: 0;
+  padding: 0%;
+  color: white ;
   display: flex;
   flex-direction: column;
-  justify-content: center;
  
 }
 
