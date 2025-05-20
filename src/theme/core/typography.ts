@@ -141,6 +141,5 @@ export const typography: TypographyVariantsOptions = {
     fontWeight: 600,
     fontSize: '2vh',
     textTransform: 'unset',
-    color: '#8a0303', // Crimson color
   },
 };
