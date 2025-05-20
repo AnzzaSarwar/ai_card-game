@@ -1,5 +1,7 @@
 
-import { SetStateAction, useState } from 'react';
+import type { SetStateAction} from 'react';
+
+import { useState } from 'react';
 
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
