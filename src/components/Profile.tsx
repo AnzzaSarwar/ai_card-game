@@ -55,9 +55,9 @@ export default function Profile() {
 
       <DashboardContent maxWidth="xl" sx={{ color: '#fff', gap: '20px' }}>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" sx={{ mb: 2 }}>
+          <h1 className="mb-2">
             Profile
-          </Typography>
+          </h1>
         </Box>
 
         {/* Main Form Box */}

@@ -2,10 +2,10 @@ import React from 'react';
 
 import card2 from '../../public/cardnav.png';
 import google from '../../public/Discord.png';
-import card3 from '../../public/Frame 47641.png';
-import card4 from '../../public/Frame 47640.png';
+import card3 from '../../public/movie5.png';
+import card4 from '../../public/math3.png';
 import facebook from '../../public/Dribbble.png';
-import card1 from '../../public/card game crafter 2.png';
+import card1 from '../../public/thorin3.png';
 import logo from '../../public/assets/icons/logos/mainlogo.svg';
 
 export default function Signuppage() {
