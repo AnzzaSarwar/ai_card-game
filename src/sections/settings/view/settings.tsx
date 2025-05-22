@@ -92,15 +92,16 @@ export function Settings() {
 <Box
       sx={{
         minHeight: '100vh',
-        px: 4,
-        py: 6,
+        px: 0,
+        py: 0,
         color: 'white',
         fontFamily: 'Roboto, sans-serif',
       }}
     >
       {/* Header */}
-      <Box mb={8} mr={5}>
-        <Typography variant="h2" className='heading' >Setting</Typography>
+      <Box mb={3} mr={5}>
+        {/* <Typography variant="h1" sx={{fontFamily: 'Montserrat', fontWeight: '700'}} >Setting</Typography> */}
+        <h1 style={{margin: '0'}}>Settings</h1>
         <Typography variant="subtitle1" sx={{ color: '#bbb' }}>
           Customize User Experience And Manage Platform Preferences.
         </Typography>

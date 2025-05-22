@@ -15,7 +15,7 @@ export default function RulesGenerator() {
       </div>
 
       {/* Form Sections */}
-      <div className="rules-form"  style={{paddingRight: '20px', paddingLeft: '20px'}}>
+      <div className="rules-form"  style={{paddingRight: '20px', }}>
         {/* Describe your game */}
         <div className="input-box">
           <div className="input-left">

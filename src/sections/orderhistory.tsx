@@ -69,9 +69,9 @@ export function OrderHistory() {
   };
 
   return (
-    <Box sx={{ px: 3, py: 4, height: '100%' }}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <h1 >Order History</h1>
+    <Box sx={{ px: 4, py: 0, height: '100%', margin: '4%', marginTop: '0' }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
+        <h1 style={{margin: '0'}}>Order History</h1>
       </Stack>
 
       <Card

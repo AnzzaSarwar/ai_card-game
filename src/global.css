@@ -90,31 +90,44 @@ input[type='number']::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* max-width: 80%;
+  margin-left: 5%; */
+  display: flex;
+  flex-direction: column;
  
 }
 
 /* Header Styles */
 .dashboard-header {
 background-image: url("/Graphic Side.png"); 
-  padding: 10%;
+background-repeat: no-repeat;
+  padding: 3%;
+  padding-left: 100px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
   width: 100%;
-height: 300px;
+  height: 100%;
+/* height: 300px; */
 
 
 }
 
+@media (min-width: 1200px) {
+    .css-nsyup5-MuiContainer-root {
+        max-width: 1600px !important;
+    }
+}
+
 .dashboard-header::before {
-  content: "";
+  /* content: "";
   position: absolute;
   width: 200%;
   height: 200%;
   top: -100px;
   left: -50px;
   background: radial-gradient(circle, rgba(163, 44, 44, 0.1) 0%, rgba(255,255,255,0) 60%);
-  transform: rotate(-15deg);
+  transform: rotate(-15deg); */
 }
 
 .app-title {
@@ -258,11 +271,10 @@ height: 300px;
 /* ############################ PAGE-  RULES GENERATOR ############################ */
 .rules-page {
  max-width: 80%;
-  width: 1281px;
-  margin: 20px ;
   margin-left: 5%;
   display: flex;
   flex-direction: column;
+  margin-top: 4%;
 }
 
 .page-heading {
@@ -454,6 +466,9 @@ height: 300px;
   font-size:2vh;
   font-weight: 600;
 }
+
+/* RESPONSIVENESS */
+
 
 /* RESPONSIVENESS */
 

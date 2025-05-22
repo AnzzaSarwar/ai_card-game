@@ -91,8 +91,8 @@ export default function Projects() {
   return (
       <>
       <title>{`Project - ${CONFIG.appName}`}</title>
-      <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
-        <Stack
+      <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '4%', marginTop: '0' }}>
+        {/* <Stack
           direction={{ xs: 'column', md: 'row' }}
           alignItems={{ xs: 'stretch', md: 'center' }}
           justifyContent="space-between"
@@ -155,9 +155,9 @@ export default function Projects() {
               />
             )}
           />
-        </Stack>
+        </Stack> */}
 
-        <h1 className='mb-2' >
+        <h1 className='mb-2' style={{margin: '0'}} >
           My Projects
         </h1>
 
