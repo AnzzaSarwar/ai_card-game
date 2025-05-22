@@ -100,6 +100,7 @@ input[type='number']::-webkit-inner-spin-button {
 /* Header Styles */
 .dashboard-header {
 background-image: url("/Graphic Side.png"); 
+background-size: cover;
 background-repeat: no-repeat;
   padding: 3%;
   padding-left: 100px;
