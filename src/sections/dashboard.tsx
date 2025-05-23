@@ -46,7 +46,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <Box  sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '4%', marginTop: '0' }}>
+    <Box  sx={{ p: { xs: 2, sm: 3, md: 4 }, marginTop: '0' }}>
       <Box className="dashboard-container" sx={{ overflow: 'hidden', }}>
         {/* Header */}
         <Box className="dashboard-header">
