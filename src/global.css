@@ -114,7 +114,7 @@ background-repeat: no-repeat;
 
 }
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
     .css-nsyup5-MuiContainer-root {
         max-width: 1600px !important;
     }
@@ -126,7 +126,7 @@ background-repeat: no-repeat;
 }
 .css-14bwfnb-MuiContainer-root {
   width: 90%;
-}
+} */
 
 .dashboard-header::before {
   /* content: "";
