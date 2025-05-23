@@ -39,7 +39,7 @@ export default function RulesGenerator() {
             </div>
           </div>
           <div className="input-right">
-            <span className="input-label">Games Roles</span>
+            <span className="input-label">Games Rules</span>
             <div className="input-field">
               <span>10</span>
             </div>

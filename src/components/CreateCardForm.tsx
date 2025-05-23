@@ -30,10 +30,7 @@ export default function CreateCardForm() {
       width: { xs: '100%', md: '60%' },
       maxWidth: '900px',
     }}>
-      <Box sx={{ mb: 4 }}>
-        <h1 className="mb-2">
-          Create Your Card Design
-</h1>      </Box>
+     
 
       {/* Main Form Box - Keep all your existing form code here */}
       <Box

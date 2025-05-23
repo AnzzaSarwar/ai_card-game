@@ -119,6 +119,14 @@ background-repeat: no-repeat;
         max-width: 1600px !important;
     }
 }
+@media (min-width: 1200px) {
+    .css-14bwfnb-MuiContainer-root {
+        max-width: 100% !important;
+    }
+}
+.css-14bwfnb-MuiContainer-root {
+  width: 90%;
+}
 
 .dashboard-header::before {
   /* content: "";
@@ -150,8 +158,8 @@ background-repeat: no-repeat;
 
 /* Main Content */
 .dashboard-content {
-  padding: 10px;
-  margin: 10px;
+  /* padding: 10px;
+  margin: 10px; */
 }
 
 /* Search Bar */
@@ -584,7 +592,6 @@ background-repeat: no-repeat;
   align-items: center;
   justify-content: center;
 }
-
 .signin-container {
   position: relative;
   width: 100vw;
@@ -673,7 +680,6 @@ background-repeat: no-repeat;
   text-align: center;
   z-index: 2;
   line-height: 1.2;
-  margin-top: 8rem;
 }
 
 .signin-subheading {
@@ -681,7 +687,6 @@ background-repeat: no-repeat;
   font-weight: 400;
   font-size: clamp(1rem, 2vw, 1.25rem);
   text-align: center;
-  margin-top: 1rem;
   max-width: 600px;
   z-index: 2;
 }
@@ -772,21 +777,22 @@ background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
+    align-items: center;
+
   padding: 3rem;
 }
 .signin-logo {
   width: 150px;
   margin-bottom: 2rem;
-  position: absolute;
-  top:200px;
-  left: 26%;
+  /* position: absolute; */
+  /* top:200px;
+  left: 26%; */
 }
 .signin-heading {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 400;
   color: #fff;
   text-align: center;
-  word-spacing: 10px;
 }
 .signin-subheading {
   font-size: clamp(1rem, 2vw, 1.25rem);
@@ -874,23 +880,18 @@ letter-spacing: 1px;
 }
 
 /* Responsive Fix */
-@media (max-width: 1024px) {
-  .signin-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+@media (max-width: 768px) {
   .signin-left,
   .signin-right {
-    width: 100%;
     padding: 1rem;
   }
-  .signin-heading,
-  .signin-subheading {
-    text-align: center;
+  .signin-logo {
+    width: 120px;
   }
-  .card1, .card2, .card3, .card4 {
-    width: clamp(120px, 25vw, 200px);
-    filter: blur(2px);
+  .signin-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .signin-subheading {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   }
 }

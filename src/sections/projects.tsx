@@ -1,10 +1,10 @@
 
-import { SetStateAction, useState } from 'react';
+import type { SetStateAction} from 'react';
+
+import { useState } from 'react';
 
 import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { Box , Grid,  Card, Stack, Button, Select, Typography } from '@mui/material';
+import { Box , Grid,  Card, Button, Select, Typography } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 

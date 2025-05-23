@@ -57,7 +57,11 @@ const handleClose = () => setOpen(false);
 
   return (
     <>
-    <DashboardContent maxWidth={false} sx={{ color: '#fff' }}>
+    <DashboardContent maxWidth={false} sx={{ color: '#fff', margin: '2%', marginTop: '0px' }}>
+       <Box sx={{ mb: 4 }}>
+              <h1 style={{margin: '0'}}>
+                Create Your Card Design
+      </h1>      </Box>
   {/* Main container with divider */}
   <Box sx={{ 
     display: 'flex',
@@ -80,7 +84,7 @@ const handleClose = () => setOpen(false);
     <Box sx={{
       width: { xs: '100%', md: '40%' },
       mr:10,
-      mt:10
+      mt:0
     
     }}>
       {/* Card Generation Box */}

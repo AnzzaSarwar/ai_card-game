@@ -65,10 +65,11 @@ export function DashboardLayout({
         </Alert>
       ),
       leftArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 8 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 10 }}>
       {/* Logo on the far left */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box
+      sx={{width: 220}}
   component="img"
   src="/assets/icons/logos/mainlogo.svg"
   alt="Main Logo"
