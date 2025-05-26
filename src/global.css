@@ -72,6 +72,10 @@ ul {
   font-weight: 700;
 }
 
+button{
+  border: 2px solid white;
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: none;
@@ -279,11 +283,12 @@ background-repeat: no-repeat;
 
 /* ############################ PAGE-  RULES GENERATOR ############################ */
 .rules-page {
- max-width: 80%;
-  margin-left: 5%;
+ max-width: 100%;
+ padding-left: 40px;
+ padding-right: 40px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  /* padding: 20px; */
   /* margin-top: 4%; */
 }
 
@@ -376,8 +381,8 @@ background-repeat: no-repeat;
   gap: 0.6rem;
   width: 100%;
   max-width: 342px;
-  height: 80px;
-  border-radius: 20px;
+  height: 60px;
+  border-radius: 10px;
     background-color: #8a0303; /* Crimson */
     
   font-size:2vh;
@@ -674,13 +679,14 @@ background-repeat: no-repeat;
 
 /* Text */
 .signin-heading {
+  margin: 0px;
   color: white;
   font-weight: 400;
   /* font-size: clamp(2rem, 5vw, 4rem); */
   font-size: 60px;
   text-align: center;
   z-index: 2;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .signin-subheading {
@@ -784,7 +790,7 @@ background-repeat: no-repeat;
 }
 .signin-logo {
   width: 150px;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   /* position: absolute; */
   /* top:200px;
   left: 26%; */
@@ -834,8 +840,10 @@ letter-spacing: 1px;
   color: white;
   font-size: 2rem;
   text-align: center;
+  margin: 0px;
 }
 .form-subtitle {
+  margin: 0px;
   color: #ccc;
   font-size: 1rem;
   text-align: center;

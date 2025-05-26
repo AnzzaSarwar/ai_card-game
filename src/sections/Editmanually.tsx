@@ -32,6 +32,24 @@ export default function Editmanually() {
               <span>Mathematics learning game for school children</span>
             </div>
           </div>
+          
+
+        </div>
+
+        {/* Difficulty + Game Roles */}
+        <div className="input-box">
+          <div className="input-left">
+            <span className="input-label">Difficulty levels</span>
+            <div className="input-field">
+              <span>Expert</span>
+            </div>
+          </div>
+          <div className="input-right">
+            <span className="input-label">Games Roles</span>
+            <div className="input-field">
+              <span>10</span>
+            </div>
+          </div>
           <button className="generate-button">
   <span>Generate</span>
   <svg
@@ -54,23 +72,6 @@ export default function Editmanually() {
     </defs>
   </svg>
 </button>
-
-        </div>
-
-        {/* Difficulty + Game Roles */}
-        <div className="input-box">
-          <div className="input-left">
-            <span className="input-label">Difficulty levels</span>
-            <div className="input-field">
-              <span>Expert</span>
-            </div>
-          </div>
-          <div className="input-right">
-            <span className="input-label">Games Roles</span>
-            <div className="input-field">
-              <span>10</span>
-            </div>
-          </div>
         </div>
 
         {/* Info Sections */}
