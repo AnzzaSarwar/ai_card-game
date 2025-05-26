@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import { Box , Grid,  Card, Button, Select, Typography } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
+import { DashboardContent } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -91,7 +92,9 @@ export default function Projects() {
   return (
       <>
       <title>{`Project - ${CONFIG.appName}`}</title>
-      <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '4%', marginTop: '0' }}>
+          <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
+      
+      {/* <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '4%', marginTop: '0' }}> */}
         {/* <Stack
           direction={{ xs: 'column', md: 'row' }}
           alignItems={{ xs: 'stretch', md: 'center' }}
@@ -157,7 +160,7 @@ export default function Projects() {
           />
         </Stack> */}
 
-        <h1 className='mb-2' style={{margin: '0'}} >
+        <h1 style={{margin: '0'}} >
           My Projects
         </h1>
 
@@ -219,7 +222,8 @@ export default function Projects() {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      {/* </Box> */}
+      </DashboardContent>
       </>
   );
 }

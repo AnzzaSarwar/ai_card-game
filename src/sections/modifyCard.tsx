@@ -44,7 +44,7 @@ export function ModifyCards() {
       {/* Buttons Section */}
       
 
-      <Box mt={5} mb={5}>
+      <Box mt={0} mb={5}>
                 <Grid container spacing={4} justifyContent="center">
                   {bottomSections.map((section, idx) => (
                     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>

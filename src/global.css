@@ -283,7 +283,8 @@ background-repeat: no-repeat;
   margin-left: 5%;
   display: flex;
   flex-direction: column;
-  margin-top: 4%;
+  padding: 20px;
+  /* margin-top: 4%; */
 }
 
 .page-heading {
@@ -317,7 +318,7 @@ background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 110%;
+  /* width: 110%; */
 }
 
 .input-box {

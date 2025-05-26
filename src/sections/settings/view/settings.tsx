@@ -86,7 +86,7 @@ export function Settings() {
   // );
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ color: '#fff'}}>
+          <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
 
 
 <Box

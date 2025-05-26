@@ -3,11 +3,15 @@ import { FaMagic } from 'react-icons/fa';
 import { BsCheckLg } from 'react-icons/bs';
 import { BsPencilFill } from 'react-icons/bs'; // For edit icon
 
+import { DashboardContent } from 'src/layouts/dashboard';
+
 // ----------------------------------------------------------------------
 
 export default function RulesGenerator() {
   return (
-    <div className="rules-page">
+    // <div className="rules-page">
+              <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
+    
       {/* Heading */}
       <div className="page-heading">
         <h1>AI Rules Generator</h1>
@@ -116,6 +120,7 @@ export default function RulesGenerator() {
           </button>
         </div>
       </div>
-    </div>
+    {/* </div> */}
+    </DashboardContent>
   );
 }

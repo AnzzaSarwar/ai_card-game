@@ -63,12 +63,12 @@ export function Notifications() {
 
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ color: '#fff' }}>
-      <Typography variant="h4" sx={{ mb: 3 }} className='heading'>
+              <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
+      <Typography variant="h1" sx={{ mb: 0 }} className='heading'>
         Notifications
       </Typography>
 
-      <Box sx={{ mb: 8 }}>
+      <Box sx={{ mb: 4 }}>
         <Stack direction="row" alignItems="center" spacing={2} sx={{ mt: 2 }}>
           <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }}>
             <CategoryButton variant="contained">All Notification</CategoryButton>

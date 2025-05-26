@@ -12,7 +12,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 export function CreateCard() {
   return (
-    <DashboardContent maxWidth="xl" sx={{ color: '#fff', marginTop: '0' }}>
+          <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
       <Box>
         <h1 style={{margin: '0'}}>
           Create Your Card Design

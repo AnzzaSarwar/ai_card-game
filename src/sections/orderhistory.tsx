@@ -21,6 +21,8 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { DashboardContent } from 'src/layouts/dashboard';
+
 // Types
 interface Order {
   id: string;
@@ -69,7 +71,7 @@ export function OrderHistory() {
   };
 
   return (
-    <Box sx={{ px: 4, py: 0, height: '100%', margin: '4%', marginTop: '0' }}>
+          <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
         <h1 style={{margin: '0'}}>Order History</h1>
       </Stack>
@@ -299,6 +301,6 @@ export function OrderHistory() {
           </Box>
         </Box>
       </Modal>
-    </Box>
+    </DashboardContent>
   );
 }

@@ -86,7 +86,7 @@ export function DashboardLayout({
     </Box>
       ),
       rightArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', pt:8, gap: { xs: 0, sm: 1 } }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', pt:8, gap: { xs: 0, sm: 1 }, }}>
     <AccountPopover data={_account} />
     <NotificationsPopover data={_notifications} />
   </Box>

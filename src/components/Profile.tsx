@@ -53,9 +53,9 @@ export default function Profile() {
   return (
     <div className="profile-page">        {/* Avatar, form fields, etc. */}
 
-      <DashboardContent maxWidth="xl" sx={{ color: '#fff', gap: '20px' }}>
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" sx={{ mb: 2 }}>
+              <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 }}}>
+        <Box sx={{ mb: 0 }}>
+          <Typography variant="h1" sx={{ mb: 0 }}>
             Profile
           </Typography>
         </Box>
@@ -73,6 +73,7 @@ export default function Profile() {
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 4,
+    marginBottom: 4,
   }}
 >
   {/* Avatar + Form Section - FLEX ROW */}
@@ -251,6 +252,7 @@ export default function Profile() {
             backdropFilter: 'blur(10px)',
             border: (theme) => `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
             borderRadius: 2,
+            marginBottom: 4,
             boxShadow: (theme) => `0 0 24px 0 ${alpha(theme.palette.common.black, 0.08)}`,
           }}
         >
