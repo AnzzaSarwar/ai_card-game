@@ -13,7 +13,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
-import { DashboardContent } from 'src/layouts/dashboard';
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('');
