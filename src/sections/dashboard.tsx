@@ -13,7 +13,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
-import { DashboardContent } from 'src/layouts/dashboard';
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,29 +45,26 @@ export default function Dashboard() {
   ];
 
   return (
+<<<<<<< HEAD
 <>      
 <Box className="dashboard-container" >
+=======
+    <Box  sx={{ p: { xs: 2, sm: 3, md: 4 }, marginTop: '0' }}>
+      <Box className="dashboard-container" sx={{ overflow: 'hidden', }}>
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
         {/* Header */}
         <Box className="dashboard-header">
-          {/* <h1 className="dashboard-subtitle">
+          <h1>
             Dashboard
-          </h1> */}
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 700,
-              color: 'white',
-              mb: 2,
-            }}
-          >
-            Dashboard
-          </Typography>
+          </h1>
+          
         </Box>
 
         {/* Main Content */}
         <Box className="dashboard-content">
           {/* Search Bar */}
           <TextField
+          sx={{padding: '30px'}}
             fullWidth
             placeholder="Search"
             value={searchQuery}
@@ -84,7 +80,11 @@ export default function Dashboard() {
           />
 
           {/* Stats Cards Section */}
+<<<<<<< HEAD
           <Grid container spacing={1} sx={{ mt: 4 }} justifyContent="center">
+=======
+          <Grid container spacing={0} sx={{ mt: 4, width: '80%' }} justifyContent="center">
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
             {[
               {
                 icon: <StyleIcon fontSize="large" sx={{ color: 'white' }} />,
@@ -119,8 +119,8 @@ export default function Dashboard() {
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: '24px',
                     p: 3,
-                    width: '250px',
-                    maxWidth: '250px',
+                    width: '80%',
+                    maxWidth: '80%',
                     minHeight: '130px', // 👈 Ensures consistent height
                     transition: 'all 0.3s ease',
                     boxShadow: '0 12px 30px rgba(0, 0, 0, 0.25)',
@@ -160,7 +160,7 @@ export default function Dashboard() {
 
           {/* Game Cards Section */}
 
-          <Grid container spacing={4} sx={{ mb: 6, mt: 4 }} justifyContent="center">
+          <Grid container spacing={4} sx={{ mb: 6, mt: 4,width: '100%' }} justifyContent="center">
             {gameCards.map((game, index) => (
               <Grid
                 size={{ xs: 12, sm: 6, md: 3 }}
@@ -175,9 +175,10 @@ export default function Dashboard() {
                     display: 'flex',
                     flexDirection: 'column',
                     border: '1px solid #534e54',
-                    backgroundColor: '#2b1233',
-                    maxWidth: '250px',
-                    width: '250px',
+                    // backgroundColor: '#2b1233',
+                    backgroundColor: 'transparent',
+                    maxWidth: '100%',
+                    width: '80%',
                     transition: 'transform 0.3s, box-shadow 0.3s',
                     '&:hover': {
                       transform: 'translateY(-5px)',
@@ -187,14 +188,15 @@ export default function Dashboard() {
                 >
                   <Box
                     sx={{
-                      height: '200px',
+                      height: '300px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       overflow: 'hidden',
                       borderTopLeftRadius: '16px',
                       borderTopRightRadius: '16px',
-                      backgroundColor: '#2b1233',
+                      // backgroundColor: '#2b1233',
+                      backgroundColor: 'transparent',
                     }}
                   >
                     <img
@@ -202,7 +204,7 @@ export default function Dashboard() {
                       alt={game.title}
                       style={{
                         maxWidth: '100%',
-                        maxHeight: '100%',
+                        maxHeight: '85%',
                         objectFit: 'contain',
                         marginTop: '40px',
                         borderRadius: '10px',
@@ -237,6 +239,10 @@ export default function Dashboard() {
           </Grid>
         </Box>
       </Box>
+<<<<<<< HEAD
 </>
+=======
+    </Box>
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
   );
 }

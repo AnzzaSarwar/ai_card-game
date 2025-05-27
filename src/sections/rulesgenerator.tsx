@@ -3,11 +3,15 @@ import { FaMagic } from 'react-icons/fa';
 import { BsCheckLg } from 'react-icons/bs';
 import { BsPencilFill } from 'react-icons/bs'; // For edit icon
 
+import { DashboardContent } from 'src/layouts/dashboard';
+
 // ----------------------------------------------------------------------
 
 export default function RulesGenerator() {
   return (
-    <div className="rules-page">
+    // <div className="rules-page">
+              <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
+    
       {/* Heading */}
       <div className="page-heading">
         <h1>AI Rules Generator</h1>
@@ -15,7 +19,12 @@ export default function RulesGenerator() {
       </div>
 
       {/* Form Sections */}
+<<<<<<< HEAD
       <div className="rules-form" >
+=======
+      <div className="rules-form"  >
+        {/* style={{paddingRight: '20px', }} */}
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
         {/* Describe your game */}
         <div className="input-box">
           <div className="input-left">
@@ -24,10 +33,7 @@ export default function RulesGenerator() {
               <span>Mathematics learning game for school children</span>
             </div>
           </div>
-          <button className="generate-button">
-            <span>Generate</span>
-            <FaMagic className="magic-icon" />
-          </button>
+          
         </div>
 
         {/* Difficulty + Game Roles */}
@@ -39,11 +45,16 @@ export default function RulesGenerator() {
             </div>
           </div>
           <div className="input-right">
-            <span className="input-label">Games Roles</span>
+            <span className="input-label">Games Rules</span>
             <div className="input-field">
               <span>10</span>
             </div>
+            
           </div>
+          <button className="generate-button">
+            <span>Generate</span>
+            <FaMagic className="magic-icon" />
+          </button>
         </div>
 
         {/* Info Sections */}
@@ -116,6 +127,7 @@ export default function RulesGenerator() {
           </button>
         </div>
       </div>
-    </div>
+    {/* </div> */}
+    </DashboardContent>
   );
 }

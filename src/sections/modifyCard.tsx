@@ -37,81 +37,92 @@ export function ModifyCards() {
 
   return (
     <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
-      <h1>
+      <h1 style={{margin: '0'}}>
         Modify Cards
       </h1>
 
       {/* Buttons Section */}
-      <Box
-        sx={{
-          mb: 5,
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          justifyContent: { sm: 'flex-end' },
-          gap: 2,
-        }}
-      >
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="solar:eye-bold" />}
-          sx={{
-             bgcolor: '#8a0303',
-                fontSize: '2vh',
-                fontWeight:600,
-            '&:hover': { backgroundColor: '#87739E' },
-            flexShrink: 0,
-          }}
-          onClick={() => setModalOpen(true)}
-        >
-          Preview
-        </Button>
+      
 
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="solar:cart-3-bold" />}
-          sx={{
-            bgcolor: '#8a0303',
-                fontSize: '2vh',
-                fontWeight:600,
-            backgroundBlendMode: 'overlay',
-            '&:hover': {
-              backgroundImage: `
-                linear-gradient(0deg, #87739E, #87739E),
-                linear-gradient(90.54deg, rgba(19, 158, 188, 0.46) 36.69%, rgba(170, 30, 205, 0.46) 91.01%)
-              `,
-            },
-            flexShrink: 0,
-          }}
-          onClick={() => setModalOpen(true)}
-        >
-          Add to Cart
-        </Button>
-
-        <Button
-          variant="outlined"
-          color="inherit"
-          startIcon={<Iconify icon="material-symbols:file-export" />}
-          sx={{
-            border: '2px solid',
-            borderImageSlice: 1,
-            borderImageSource: `linear-gradient(90.54deg, #139EBC 36.69%, #AA1ECD 91.01%)`,
- bgcolor: '#8a0303',
-                fontSize: '2vh',
-                fontWeight:600,            color: '#fff',
-            '&:hover': {
-              backgroundColor: 'rgba(255,255,255,0.05)',
-            },
-            flexShrink: 0,
-          }}
-          onClick={() => setModalOpen(true)}
-        >
-          Export as PDF
-        </Button>
-      </Box>
+      <Box mt={0} mb={5}>
+                <Grid container spacing={4} justifyContent="center">
+                  {bottomSections.map((section, idx) => (
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          backgroundColor: '#6D5A826E',
+                          borderRadius: '16px',
+                          p: 5,
+                          height: '100%',
+                        }}
+                      >
+                        {/* Left side icon */}
+                        <Box
+                          sx={{
+                            width: 120,
+                            height: 120,
+                            backgroundColor: '#29193C82',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'hidden',
+                            mr: 2,
+                          }}
+                        >
+                          <Box
+                            component="img"
+                            src={section.image}
+                            alt="section image"
+                            sx={{
+                              width: '100%',
+                              height: '100%',
+                              padding: '5px',
+                              borderRadius: '8px',
+                            }}
+                          />
+                        </Box>
+        
+                        {/* Right side: Text and Icon vertically aligned */}
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            // justifyContent: 'center',
+                          flexDirection: 'spaceBetween',
+                            alignItems: 'end',
+                            justifyContent: 'space-between',
+                            flex: 1,
+                          }}
+                        >
+                          <Typography
+                            variant="body1"
+                            sx={{
+                              color: 'white',
+                              fontWeight: 'bold',
+                              mb: 1,
+                            }}
+                          >
+                            {section.title}
+                          </Typography>
+                          <Box
+                            component="img"
+                            src={section.icon}
+                            alt="section right icon"
+                            sx={{
+                              width: 32,
+                              height: 32,
+                              objectFit: 'contain',
+                            }}
+                          />
+                        </Box>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
 
       {/* Card Grid */}
       {/* <Grid container spacing={3}>
@@ -190,7 +201,7 @@ export function ModifyCards() {
       <Box
         sx={{
           mt: 8,
-          display: 'flex',
+          display: 'block',
           justifyContent: 'center',
           color: '#fff',
           '& .MuiPaginationItem-root': {
@@ -207,82 +218,77 @@ export function ModifyCards() {
           boundaryCount={0}
         /> */}
 
-        <Box mt={5}>
-                <Grid container spacing={4} justifyContent="center">
-                  {bottomSections.map((section, idx) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          backgroundColor: '#6D5A826E',
-                          borderRadius: '16px',
-                          p: 2,
-                          height: '100%',
-                        }}
-                      >
-                        {/* Left side icon */}
-                        <Box
-                          sx={{
-                            width: 80,
-                            height: 80,
-                            backgroundColor: '#29193C82',
-                            borderRadius: '12px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            overflow: 'hidden',
-                            mr: 2,
-                          }}
-                        >
-                          <Box
-                            component="img"
-                            src={section.image}
-                            alt="section image"
-                            sx={{
-                              width: '88%',
-                              height: '84%',
-                              padding: '1px',
-                              borderRadius: '8px',
-                            }}
-                          />
-                        </Box>
+<Box
+        sx={{
+          mb: 5,
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          justifyContent: { sm: 'flex-end' },
+          gap: 2,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="solar:eye-bold" />}
+          sx={{
+             bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
+            '&:hover': { backgroundColor: '#87739E' },
+            flexShrink: 0,
+          }}
+          onClick={() => setModalOpen(true)}
+        >
+          Preview
+        </Button>
+
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="solar:cart-3-bold" />}
+          sx={{
+            bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,
+            backgroundBlendMode: 'overlay',
+            '&:hover': {
+              backgroundImage: `
+                linear-gradient(0deg, #87739E, #87739E),
+                linear-gradient(90.54deg, rgba(19, 158, 188, 0.46) 36.69%, rgba(170, 30, 205, 0.46) 91.01%)
+              `,
+            },
+            flexShrink: 0,
+          }}
+          onClick={() => setModalOpen(true)}
+        >
+          Add to Cart
+        </Button>
+
+        <Button
+          variant="outlined"
+          color="inherit"
+          startIcon={<Iconify icon="material-symbols:file-export" />}
+          sx={{
+            border: '2px solid',
+            borderImageSlice: 1,
+            borderImageSource: `linear-gradient(90.54deg, #139EBC 36.69%, #AA1ECD 91.01%)`,
+ bgcolor: '#8a0303',
+                fontSize: '2vh',
+                fontWeight:600,            color: '#fff',
+            '&:hover': {
+              backgroundColor: 'rgba(255,255,255,0.05)',
+            },
+            flexShrink: 0,
+          }}
+          onClick={() => setModalOpen(true)}
+        >
+          Export as PDF
+        </Button>
+      </Box>
         
-                        {/* Right side: Text and Icon vertically aligned */}
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            flex: 1,
-                          }}
-                        >
-                          <Typography
-                            variant="body1"
-                            sx={{
-                              color: 'white',
-                              fontWeight: 'bold',
-                              mb: 1,
-                            }}
-                          >
-                            {section.title}
-                          </Typography>
-                          <Box
-                            component="img"
-                            src={section.icon}
-                            alt="section right icon"
-                            sx={{
-                              width: 32,
-                              height: 32,
-                              objectFit: 'contain',
-                            }}
-                          />
-                        </Box>
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
       </Box>
     </DashboardContent>
   );

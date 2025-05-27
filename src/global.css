@@ -72,6 +72,10 @@ ul {
   font-weight: 700;
 }
 
+button{
+  border: 2px solid white;
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: none;
@@ -90,31 +94,62 @@ input[type='number']::-webkit-inner-spin-button {
   color: white ;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
+=======
+  justify-content: center;
+  /* max-width: 80%;
+  margin-left: 5%; */
+  display: flex;
+  flex-direction: column;
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
  
 }
 
 /* Header Styles */
 .dashboard-header {
 background-image: url("/Graphic Side.png"); 
-  padding: 10%;
+background-size: cover;
+background-repeat: no-repeat;
+  padding: 3%;
+  padding-left: 100px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+<<<<<<< HEAD
   width: 75%;
 height: 300px;
+=======
+  width: 100%;
+  height: 100%;
+/* height: 300px; */
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
 
 
 }
 
+/* @media (min-width: 1200px) {
+    .css-nsyup5-MuiContainer-root {
+        max-width: 1600px !important;
+    }
+}
+@media (min-width: 1200px) {
+    .css-14bwfnb-MuiContainer-root {
+        max-width: 100% !important;
+    }
+}
+.css-14bwfnb-MuiContainer-root {
+  width: 90%;
+} */
+
 .dashboard-header::before {
-  content: "";
+  /* content: "";
   position: absolute;
   width: 200%;
   height: 200%;
   top: -100px;
   left: -50px;
   background: radial-gradient(circle, rgba(163, 44, 44, 0.1) 0%, rgba(255,255,255,0) 60%);
-  transform: rotate(-15deg);
+  transform: rotate(-15deg); */
 }
 
 .app-title {
@@ -136,8 +171,8 @@ height: 300px;
 
 /* Main Content */
 .dashboard-content {
-  padding: 10px;
-  margin: 10px;
+  /* padding: 10px;
+  margin: 10px; */
 }
 
 /* Search Bar */
@@ -257,10 +292,18 @@ height: 300px;
 
 /* ############################ PAGE-  RULES GENERATOR ############################ */
 .rules-page {
+<<<<<<< HEAD
  max-width: 80%;
   margin-left: 5%;
+=======
+ max-width: 100%;
+ padding-left: 40px;
+ padding-right: 40px;
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
   display: flex;
   flex-direction: column;
+  /* padding: 20px; */
+  /* margin-top: 4%; */
 }
 
 .page-heading {
@@ -294,7 +337,7 @@ height: 300px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 110%;
+  /* width: 110%; */
 }
 
 .input-box {
@@ -352,8 +395,8 @@ height: 300px;
   gap: 0.6rem;
   width: 100%;
   max-width: 342px;
-  height: 80px;
-  border-radius: 20px;
+  height: 60px;
+  border-radius: 10px;
     background-color: #8a0303; /* Crimson */
     
   font-size:2vh;
@@ -452,6 +495,9 @@ height: 300px;
   font-size:2vh;
   font-weight: 600;
 }
+
+/* RESPONSIVENESS */
+
 
 /* RESPONSIVENESS */
 
@@ -566,7 +612,6 @@ height: 300px;
   align-items: center;
   justify-content: center;
 }
-
 .signin-container {
   position: relative;
   width: 100vw;
@@ -648,13 +693,18 @@ height: 300px;
 
 /* Text */
 .signin-heading {
+  margin: 0px;
   color: white;
   font-weight: 400;
   /* font-size: clamp(2rem, 5vw, 4rem); */
   font-size: 60px;
   text-align: center;
   z-index: 2;
+<<<<<<< HEAD
   line-height: 1.2;
+=======
+  line-height: 1.1;
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
 }
 
 .signin-subheading {
@@ -758,7 +808,11 @@ height: 300px;
 }
 .signin-logo {
   width: 150px;
+<<<<<<< HEAD
   margin-bottom: 2rem;
+=======
+  /* margin-bottom: 2rem; */
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
   /* position: absolute; */
   /* top:200px;
   left: 26%; */
@@ -808,8 +862,10 @@ letter-spacing: 1px;
   color: white;
   font-size: 2rem;
   text-align: center;
+  margin: 0px;
 }
 .form-subtitle {
+  margin: 0px;
   color: #ccc;
   font-size: 1rem;
   text-align: center;
@@ -855,23 +911,18 @@ letter-spacing: 1px;
 }
 
 /* Responsive Fix */
-@media (max-width: 1024px) {
-  .signin-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+@media (max-width: 768px) {
   .signin-left,
   .signin-right {
-    width: 100%;
     padding: 1rem;
   }
-  .signin-heading,
-  .signin-subheading {
-    text-align: center;
+  .signin-logo {
+    width: 120px;
   }
-  .card1, .card2, .card3, .card4 {
-    width: clamp(120px, 25vw, 200px);
-    filter: blur(2px);
+  .signin-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .signin-subheading {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   }
 }

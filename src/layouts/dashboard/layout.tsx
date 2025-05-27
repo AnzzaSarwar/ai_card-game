@@ -65,10 +65,11 @@ export function DashboardLayout({
         </Alert>
       ),
       leftArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 8 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pt: 10 }}>
       {/* Logo on the far left */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box
+      sx={{width: 220}}
   component="img"
   src="/assets/icons/logos/mainlogo.svg"
   alt="Main Logo"
@@ -85,7 +86,7 @@ export function DashboardLayout({
     </Box>
       ),
       rightArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', pt:8, gap: { xs: 0, sm: 1 } }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', pt:8, gap: { xs: 0, sm: 1 }, }}>
     <AccountPopover data={_account} />
     <NotificationsPopover data={_notifications} />
   </Box>

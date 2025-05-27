@@ -3,9 +3,15 @@ import React from 'react';
 import card4 from '../../public/math3.png';
 import card3 from '../../public/movie5.png';
 import card2 from '../../public/cardnav.png';
+<<<<<<< HEAD
 import card1 from '../../public/thorin3.png';
 import google from '../../public/Discord.png';
 import facebook from '../../public/Dribbble.png';
+=======
+import card4 from '../../public/math3[1].png';
+import card3 from '../../public/movie5[1].png';
+import card1 from '../../public/thorin3[1].png';
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
 import logo from '../../public/assets/icons/logos/mainlogo.svg';
 
 export default function Signuppage() {
@@ -51,12 +57,13 @@ export default function Signuppage() {
             </div>
 
             <button type="submit" className="signin-btn">Sign in</button>
-            <p className="alt-signin">or sign in with other accounts?</p>
+            <button type="submit" className="signin-btn">Sign in with Google</button>
+            {/* <p className="alt-signin">or sign in with other accounts?</p> */}
 
-            <div className="social-icons">
+            {/* <div className="social-icons">
               <img src={google} alt="Google" />
               <img src={facebook} alt="Facebook" />
-            </div>
+            </div> */}
 
             <p className="signup-link">
               Don’t have an account? <a href="/src/sections/signuppage.tsx">Click here to sign up.</a>
@@ -64,6 +71,6 @@ export default function Signuppage() {
           </form>
         </div>
       </div>
-    </div>
-  );
+</div>
+);
 }

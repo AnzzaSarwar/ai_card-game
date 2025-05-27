@@ -12,11 +12,17 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 export function CreateCard() {
   return (
+<<<<<<< HEAD
 <>
     <DashboardContent maxWidth="xl" sx={{ color: '#fff',}}>
 
      <Box sx={{ mb: { xs: 2, md: 4 } }}>
         <h1 className='mb-2'>
+=======
+          <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
+      <Box>
+        <h1 style={{margin: '0'}}>
+>>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
           Create Your Card Design
         </h1>
       </Box>
@@ -34,7 +40,7 @@ export function CreateCard() {
         {/* First Prompt Field */}
         <FormControl fullWidth sx={{ mb: 3 }}>
           <Typography variant="h6" sx={{ mt: 2, mb: 1, fontSize: { xs: '1rem', md: '1.25rem' } }}>
-            Aiprompt
+           Enter your AI Prompt
           </Typography>
           <TextField
             fullWidth
@@ -64,7 +70,7 @@ export function CreateCard() {
           {/* Left Field */}
           <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 280 } }}>
             <Typography variant="h6" sx={{ mb: 1 }}>
-              Game
+              Game Type
             </Typography>
             <TextField
               fullWidth
@@ -210,7 +216,7 @@ export function CreateCard() {
     <InputLabel sx={{ color: '#ccc' }}>30</InputLabel>
     <Select
       defaultValue=""
-      label="30"
+      label="30-120"
       IconComponent={ArrowDropDownIcon}
       inputProps={{
         style: { color: '#fff' },
@@ -225,11 +231,11 @@ export function CreateCard() {
         },
       }}
     >
-      <MenuItem value="20">20</MenuItem>
-      <MenuItem value="30">30</MenuItem>
+      <MenuItem value="20">30-120</MenuItem>
+      {/* <MenuItem value="30">30</MenuItem>
       <MenuItem value="40">40</MenuItem>
       <MenuItem value="52">52</MenuItem>
-      <MenuItem value="78">78</MenuItem>
+      <MenuItem value="78">78</MenuItem> */}
     </Select>
   </FormControl>
 </Box>
@@ -286,7 +292,7 @@ export function CreateCard() {
       fontSize: { xs: '1rem', md: '1.25rem' },
     }}
   >
-    Card Block
+    Card Back
   </Typography>
 
   <FormControl fullWidth variant="outlined">
