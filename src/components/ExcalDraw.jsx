@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
 import "@excalidraw/excalidraw/index.css"; // Updated import path
+// Example, update the import path if needed
+// import "@excalidraw/excalidraw/dist/excalidraw.css"; // comment this out for now
 
 import { useNavigate } from "react-router";
-import { Excalidraw } from "@excalidraw/excalidraw"; // Import exportToBlob if needed later
+import { Excalidraw } from "@excalidraw/excalidraw";
 import  {useRef, useState, useEffect, useCallback } from "react"; // Added useEffect, useRef, useCallback
 
 import { Box, Typography, CircularProgress } from "@mui/material";
