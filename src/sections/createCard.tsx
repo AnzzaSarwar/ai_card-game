@@ -7,13 +7,15 @@ import FolderIcon from '@mui/icons-material/Folder';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Select, MenuItem, TextField, InputLabel } from '@mui/material';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-
 import { DashboardContent } from 'src/layouts/dashboard';
+
 
 export function CreateCard() {
   return (
-    <DashboardContent maxWidth="xl" sx={{ color: '#fff' }}>
-      <Box sx={{ mb: { xs: 2, md: 4 } }}>
+<>
+    <DashboardContent maxWidth="xl" sx={{ color: '#fff',}}>
+
+     <Box sx={{ mb: { xs: 2, md: 4 } }}>
         <h1 className='mb-2'>
           Create Your Card Design
         </h1>
@@ -478,7 +480,8 @@ export function CreateCard() {
           </Box>
         </Box>
       </Box>
-    </DashboardContent>
+      </DashboardContent>
+    </>
   );
 }
 

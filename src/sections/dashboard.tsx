@@ -46,8 +46,8 @@ export default function Dashboard() {
   ];
 
   return (
-    <DashboardContent>
-      <Box className="dashboard-container" >
+<>      
+<Box className="dashboard-container" >
         {/* Header */}
         <Box className="dashboard-header">
           {/* <h1 className="dashboard-subtitle">
@@ -84,7 +84,7 @@ export default function Dashboard() {
           />
 
           {/* Stats Cards Section */}
-          <Grid container spacing={3} sx={{ mt: 4 }} justifyContent="center">
+          <Grid container spacing={1} sx={{ mt: 4 }} justifyContent="center">
             {[
               {
                 icon: <StyleIcon fontSize="large" sx={{ color: 'white' }} />,
@@ -237,6 +237,6 @@ export default function Dashboard() {
           </Grid>
         </Box>
       </Box>
-    </DashboardContent>
+</>
   );
 }

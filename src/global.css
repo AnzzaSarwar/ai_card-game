@@ -100,7 +100,7 @@ background-image: url("/Graphic Side.png");
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  width: 100%;
+  width: 75%;
 height: 300px;
 
 
@@ -258,8 +258,6 @@ height: 300px;
 /* ############################ PAGE-  RULES GENERATOR ############################ */
 .rules-page {
  max-width: 80%;
-  width: 1281px;
-  margin: 20px ;
   margin-left: 5%;
   display: flex;
   flex-direction: column;
