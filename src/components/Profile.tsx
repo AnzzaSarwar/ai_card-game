@@ -53,17 +53,11 @@ export default function Profile() {
   return (
     <div className="profile-page">        {/* Avatar, form fields, etc. */}
 
-<<<<<<< HEAD
-      <DashboardContent maxWidth="xl" sx={{ color: '#fff', gap: '20px' }}>
-        <Box sx={{ mb: 4 }}>
-          <h1 className="mb-2">
-=======
               <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 }}}>
         <Box sx={{ mb: 0 }}>
           <Typography variant="h1" sx={{ mb: 0 }}>
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
             Profile
-          </h1>
+          </Typography>
         </Box>
 
         {/* Main Form Box */}

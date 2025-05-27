@@ -45,13 +45,11 @@ export default function Dashboard() {
   ];
 
   return (
-<<<<<<< HEAD
-<>      
+
 <Box className="dashboard-container" >
-=======
     <Box  sx={{ p: { xs: 2, sm: 3, md: 4 }, marginTop: '0' }}>
       <Box className="dashboard-container" sx={{ overflow: 'hidden', }}>
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
+
         {/* Header */}
         <Box className="dashboard-header">
           <h1>
@@ -80,11 +78,8 @@ export default function Dashboard() {
           />
 
           {/* Stats Cards Section */}
-<<<<<<< HEAD
           <Grid container spacing={1} sx={{ mt: 4 }} justifyContent="center">
-=======
           <Grid container spacing={0} sx={{ mt: 4, width: '80%' }} justifyContent="center">
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
             {[
               {
                 icon: <StyleIcon fontSize="large" sx={{ color: 'white' }} />,
@@ -156,6 +151,7 @@ export default function Dashboard() {
                 </Card>
               </Grid>
             ))}
+          </Grid>
           </Grid>
 
           {/* Game Cards Section */}
@@ -239,10 +235,8 @@ export default function Dashboard() {
           </Grid>
         </Box>
       </Box>
-<<<<<<< HEAD
-</>
-=======
+
     </Box>
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
+    </Box>
   );
 }

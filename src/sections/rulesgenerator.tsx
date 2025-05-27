@@ -19,12 +19,9 @@ export default function RulesGenerator() {
       </div>
 
       {/* Form Sections */}
-<<<<<<< HEAD
       <div className="rules-form" >
-=======
       <div className="rules-form"  >
         {/* style={{paddingRight: '20px', }} */}
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
         {/* Describe your game */}
         <div className="input-box">
           <div className="input-left">
@@ -33,7 +30,7 @@ export default function RulesGenerator() {
               <span>Mathematics learning game for school children</span>
             </div>
           </div>
-          
+          </div>
         </div>
 
         {/* Difficulty + Game Roles */}

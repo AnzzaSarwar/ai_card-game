@@ -1,17 +1,8 @@
-import React from 'react';
 
-import card4 from '../../public/math3.png';
-import card3 from '../../public/movie5.png';
 import card2 from '../../public/cardnav.png';
-<<<<<<< HEAD
-import card1 from '../../public/thorin3.png';
-import google from '../../public/Discord.png';
-import facebook from '../../public/Dribbble.png';
-=======
 import card4 from '../../public/math3[1].png';
 import card3 from '../../public/movie5[1].png';
 import card1 from '../../public/thorin3[1].png';
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
 import logo from '../../public/assets/icons/logos/mainlogo.svg';
 
 export default function Signuppage() {

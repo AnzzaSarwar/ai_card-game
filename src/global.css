@@ -89,19 +89,15 @@ input[type='number']::-webkit-inner-spin-button {
 
 /* Dashboard Container */
 .dashboard-container {
-  margin: 0;
-  padding: 0%;
-  color: white ;
+  color: white !important;
+  padding: 10px 10px;
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-=======
   justify-content: center;
   /* max-width: 80%;
   margin-left: 5%; */
   display: flex;
   flex-direction: column;
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
  
 }
 
@@ -115,14 +111,9 @@ background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-<<<<<<< HEAD
-  width: 75%;
-height: 300px;
-=======
   width: 100%;
   height: 100%;
 /* height: 300px; */
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
 
 
 }
@@ -141,7 +132,7 @@ height: 300px;
   width: 90%;
 } */
 
-.dashboard-header::before {
+/* .dashboard-header::before { */
   /* content: "";
   position: absolute;
   width: 200%;
@@ -150,7 +141,7 @@ height: 300px;
   left: -50px;
   background: radial-gradient(circle, rgba(163, 44, 44, 0.1) 0%, rgba(255,255,255,0) 60%);
   transform: rotate(-15deg); */
-}
+/* } */
 
 .app-title {
   font-size: 2rem;
@@ -170,10 +161,10 @@ height: 300px;
 }
 
 /* Main Content */
-.dashboard-content {
+/* .dashboard-content {
   /* padding: 10px;
   margin: 10px; */
-}
+
 
 /* Search Bar */
 .search-bar {
@@ -292,14 +283,9 @@ height: 300px;
 
 /* ############################ PAGE-  RULES GENERATOR ############################ */
 .rules-page {
-<<<<<<< HEAD
- max-width: 80%;
-  margin-left: 5%;
-=======
  max-width: 100%;
  padding-left: 40px;
  padding-right: 40px;
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
   display: flex;
   flex-direction: column;
   /* padding: 20px; */
@@ -700,11 +686,7 @@ height: 300px;
   font-size: 60px;
   text-align: center;
   z-index: 2;
-<<<<<<< HEAD
-  line-height: 1.2;
-=======
   line-height: 1.1;
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
 }
 
 .signin-subheading {
@@ -808,11 +790,7 @@ height: 300px;
 }
 .signin-logo {
   width: 150px;
-<<<<<<< HEAD
-  margin-bottom: 2rem;
-=======
   /* margin-bottom: 2rem; */
->>>>>>> 5500cf9fd95add075697e8ba4420bd512804453c
   /* position: absolute; */
   /* top:200px;
   left: 26%; */
