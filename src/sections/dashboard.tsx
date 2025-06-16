@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -13,10 +14,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
-
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('');
 
+
+
+  
   // Game card data
   const gameCards = [
     {

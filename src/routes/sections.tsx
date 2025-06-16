@@ -17,7 +17,8 @@ import Editmanually from 'src/sections/Editmanually';
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
 export const CreateCardPage = lazy(() => import('src/pages/createcard'));
 export const ProjectPage = lazy(() => import('src/pages/project'));
-export const SignInPage = lazy(() => import('src/pages/sign-in'));
+// export const SignInPage = lazy(() => import('src/pages/sign-in'));
+export const LoginPage = lazy(() => import('src/sections/loginpage'));
 export const SignUpPage = lazy(() => import('src/sections/signuppage'));
 export const RulesGeneratorPage = lazy(() => import('src/pages/rulesgenerator'));
 export const OrderHistoryPage = lazy(() => import('src/pages/orderhistory'));
@@ -93,11 +94,11 @@ export const routesSection: RouteObject[] = [
     ],
   },
   {
-    path: 'sign-in',
+    path: 'login',
     element: (
-      <AuthLayout>
-        <SignInPage />
-      </AuthLayout>
+      // <AuthLayout>
+        <LoginPage />
+      // </AuthLayout>
     ),
   },
   {

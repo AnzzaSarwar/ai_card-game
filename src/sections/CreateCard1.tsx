@@ -60,6 +60,7 @@ export default function CreateCard1() {
         {/* Main container with divider */}
         <Box
           sx={{
+            gap: 4,
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             width: '100%',

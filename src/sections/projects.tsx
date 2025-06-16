@@ -1,10 +1,12 @@
-
 import type { SetStateAction} from 'react';
 
-import { useState } from 'react';
+import axios from 'axios';
+
+
+import { useState, useEffect } from 'react';
 
 import { styled } from '@mui/material/styles';
-import { Box , Grid,  Card, Button, Select, Typography } from '@mui/material';
+import { Box , Grid,  Card, Button, Select, Typography, Chip, CardContent } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -45,6 +47,24 @@ const FilterSelect = styled(Select)(({ theme }) => ({
 }));
 
 export default function Projects() {
+
+  const [data, setData] = useState(null)
+
+    const fetchcard = async () => {
+    axios.get('http://52.203.31.162:5001/api/cards/684ddc146e5e85165924172c')
+    .then(response => {
+      console.log(response.data.data);
+      setData(response.data.data)
+      
+    }).catch(error => {
+      console.log(error);
+      
+    })    
+  }
+
+  useEffect(() => {
+    fetchcard()
+  }, [])
   const [filter, setFilter] = useState('');
 
   const handleFilterChange = (event: { target: { value: SetStateAction<string> } }) => {
@@ -94,6 +114,76 @@ export default function Projects() {
       <title>{`Project - ${CONFIG.appName}`}</title>
           <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
       
+
+      <div className="">
+{
+  // data?.map((card) => (
+    <Card
+  sx={{
+    position: 'relative',
+    maxWidth: 400,
+    mx: 'auto',
+    mb: 4,
+    borderRadius: 4,
+    boxShadow: 8,
+    background: 'linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 60%, #fce7f3 100%)',
+    overflow: 'visible',
+    transition: 'transform 0.3s, box-shadow 0.3s',
+    '&:hover': {
+      transform: 'scale(1.03)',
+      boxShadow: 16,
+    },
+  }}
+>
+  {/* Decorative Icon */}
+  <Box
+    sx={{
+      position: 'absolute',
+      top: -32,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      bgcolor: 'primary.main',
+      borderRadius: '50%',
+      p: 1.5,
+      boxShadow: 3,
+      border: '4px solid white',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M12 2a7 7 0 0 1 7 7c0 3.87-3.13 7-7 7s-7-3.13-7-7a7 7 0 0 1 7-7Zm0 16c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4Z"/></svg>
+  </Box>
+  <CardContent sx={{ pt: 5 }}>
+    <Typography variant="h5" color="primary" fontWeight={700} align="center" gutterBottom>
+      My Math Deck - Card 1
+    </Typography>
+    <Box sx={{ color: 'text.secondary', fontSize: 14, mb: 2, textAlign: 'center' }}>
+      <div><b>Card ID:</b> <span style={{ color: '#6366f1' }}>684ddc146e5e85165924172c</span></div>
+      <div><b>Box ID:</b> <span style={{ color: '#a21caf' }}>684ddc146e5e85165924172a</span></div>
+      <div><b>Created:</b> {new Date('2025-06-14T20:31:16.237Z').toLocaleString()}</div>
+      <div><b>Updated:</b> {new Date('2025-06-14T20:31:16.237Z').toLocaleString()}</div>
+      <div><b>Dimensions:</b> <span style={{ color: '#db2777' }}>315px × 440px</span></div>
+    </Box>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', mb: 2 }}>
+      <Chip label="Guest Card" size="small" sx={{ bgcolor: 'warning.light', color: 'warning.dark', fontWeight: 600 }} />
+      <Chip label="Front Elements: 2" size="small" sx={{ bgcolor: 'primary.light', color: 'primary.dark', fontWeight: 600 }} />
+      <Chip label="Back Elements: 1" size="small" sx={{ bgcolor: 'secondary.light', color: 'secondary.dark', fontWeight: 600 }} />
+    </Box>
+    <Box sx={{ bgcolor: 'white', opacity: 0.9, p: 2, borderRadius: 2, boxShadow: 1, border: '1px solid #e0e7ff', textAlign: 'left' }}>
+      <Typography variant="subtitle2" color="primary" fontWeight={600} gutterBottom>
+        AI Prompt:
+      </Typography>
+      <Typography variant="body2" color="text.secondary" fontStyle="italic">
+        User Request: Generate 5 unique, concise but compelling educational math questions for kids, vibrant style...
+      </Typography>
+    </Box>
+  </CardContent>
+</Card>
+  // ))
+}
+      </div>
+
       {/* <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '4%', marginTop: '0' }}> */}
         {/* <Stack
           direction={{ xs: 'column', md: 'row' }}

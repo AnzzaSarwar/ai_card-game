@@ -5,7 +5,7 @@ import card3 from '../../public/movie5[1].png';
 import card1 from '../../public/thorin3[1].png';
 import logo from '../../public/assets/icons/logos/mainlogo.svg';
 
-export default function Signuppage() {
+export default function Login() {
   return (
     <div className="signin-container">
       {/* Background Cards */}
@@ -30,8 +30,8 @@ export default function Signuppage() {
         {/* Right Side */}
         <div className="signin-right">
           <form className="form-bg">
-            <h2 className="form-title">Sign Up</h2>
-            <p className="form-subtitle">Sign up to stay connected.</p>
+            <h2 className="form-title">Login</h2>
+            <p className="form-subtitle">Log in to stay connected.</p>
 
             <label>Email</label>
             <input type="email" className="input" />
@@ -57,7 +57,7 @@ export default function Signuppage() {
             </div> */}
 
             <p className="signup-link">
-              Already have an account? <a href="/login">Click here to Login.</a>
+              Don't have an account? <a href="sign-up">Click here to sign up.</a>
             </p>
           </form>
         </div>

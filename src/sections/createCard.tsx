@@ -56,7 +56,7 @@ export function CreateCard() {
             display: 'flex',
             gap: { xs: 2, sm: 3 },
             mb: 3,
-            flexDirection: { xs: 'column', md: 'row' },
+            flexDirection: { xs: 'column'},
             justifyContent: 'space-between',
           }}
         >
@@ -119,13 +119,13 @@ export function CreateCard() {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: { xs: 'column' },
               alignItems: { md: 'flex-start' },
               gap: 5,
             }}
           >
             {/* Color Theme Selector */}
-            <Box sx={{ width: { xs: '100%', md: '50%' } }}>
+            <Box sx={{ width: { xs: '100%'} }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
                 Card Color Theme
               </Typography>
@@ -201,7 +201,7 @@ export function CreateCard() {
             </Box>
 
           {/* Cards per Deck Field */}
-<Box sx={{ width: { xs: '100%', md: '50%' }, mb: 6 }}>
+<Box sx={{ width: { xs: '100%' }, mb: 5 }}>
   <Typography variant="h6" sx={{ mb: 1 }}>
     How many Cards per Deck
   </Typography>
@@ -239,13 +239,13 @@ export function CreateCard() {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
+            flexDirection: { xs: 'column'},
             alignItems: { md: 'flex-start' },
             gap: 2,
           }}
         >
           {/* Create Tuck Box Button */}
-          <Box sx={{ width: { xs: '100%', md: '50%' } }}>
+          <Box sx={{ width: { xs: '100%' }, mb: 2 }}>
             <Box
               sx={{
                 display: 'flex',
@@ -271,7 +271,7 @@ export function CreateCard() {
         
 <Box
   sx={{
-    width: { xs: '100%', sm: '80%', md: '60%', lg: '50%' },
+    width: { xs: '100%' },
     mx: 'auto', // center it horizontally
     display: 'flex',
     flexDirection: 'column',
