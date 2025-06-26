@@ -1,10 +1,16 @@
-
-import type { SetStateAction} from 'react';
-
+import type { SetStateAction } from 'react';
 import { useState } from 'react';
-
 import { styled } from '@mui/material/styles';
-import { Box , Grid,  Card, Button, Select, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Card,
+  Button,
+  Select,
+  Typography,
+  Autocomplete,
+  TextField
+} from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 
@@ -54,25 +60,22 @@ export default function Projects() {
     {
       title: 'Movie Trivia Real',
       date: 'January 18 2025',
-      image: 'movie.png'
+      image: 'movie.png',
     },
     {
       title: 'Stardust Wanderer',
       date: 'December 25 2024',
-      image:
-        '/fire.png',
+      image: '/fire.png',
     },
     {
       title: 'Thorin Stoneheim',
       date: 'August 05 2024',
-      image:
-        '/thorin.png',
+      image: '/thorin.png',
     },
     {
       title: 'Math Adventure',
       date: 'March 29 2024',
-      image:
-        '/Math.jpg',
+      image: '/Math.jpg',
     },
   ];
 
@@ -89,10 +92,11 @@ export default function Projects() {
   }
 
   return (
-      <>
+    <>
       <title>{`Project - ${CONFIG.appName}`}</title>
-      <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '4%', marginTop: '0' }}>
-        {/* <Stack
+      <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, margin: '3%', marginTop: '0' }}>
+        {/* 
+        <Stack
           direction={{ xs: 'column', md: 'row' }}
           alignItems={{ xs: 'stretch', md: 'center' }}
           justifyContent="space-between"
@@ -155,20 +159,27 @@ export default function Projects() {
               />
             )}
           />
-        </Stack> */}
+        </Stack>
+        */}
 
-        <h1 className='mb-2' style={{margin: '0'}} >
+        <h1 className="mb-2" style={{ margin: '0' }}>
           My Projects
         </h1>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} justifyContent={{ xs: 'center', md: 'flex-start' }}>
           {gameCards.map((game, index) => (
-            <Grid  key={index}>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 3 }}
+              key={index}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
               <Card
                 sx={{
                   borderRadius: '16px',
                   boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-                  width: '280px',
+                  width: '100%',
+                  maxWidth: 280,
+                  display: 'flex',
                   flexDirection: 'column',
                   border: '1px solid #534e54',
                   backgroundColor: '#2b1233',
@@ -181,7 +192,7 @@ export default function Projects() {
               >
                 <Box
                   sx={{
-                    height: '200px',
+                    height: 220,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -189,17 +200,17 @@ export default function Projects() {
                     borderTopLeftRadius: '16px',
                     borderTopRightRadius: '16px',
                     backgroundColor: '#2b1233',
+                    px: 2,
+                    pt: 2,
                   }}
                 >
                   <img
                     src={game.image}
                     alt={game.title}
                     style={{
-                      maxWidth: '100%',
-                      maxHeight: '100%',
+                      width: '100%',
+                      height: '100%',
                       objectFit: 'contain',
-                      backgroundColor: '#2b1233',
-                      marginTop: '40px',
                       borderRadius: '10px',
                     }}
                   />
@@ -220,6 +231,6 @@ export default function Projects() {
           ))}
         </Grid>
       </Box>
-      </>
+    </>
   );
 }

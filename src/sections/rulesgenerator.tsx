@@ -20,7 +20,7 @@ export default function RulesGenerator() {
         <div className="input-box">
           <div className="input-left">
             <span className="input-label">Describe your game</span>
-            <div className="input-field">
+            <div className="input-field2">
               <span>Mathematics learning game for school children</span>
             </div>
           </div>
@@ -34,13 +34,13 @@ export default function RulesGenerator() {
         <div className="input-box">
           <div className="input-left">
             <span className="input-label">Difficulty levels</span>
-            <div className="input-field">
+            <div className="input-field2">
               <span>Expert</span>
             </div>
           </div>
           <div className="input-right">
             <span className="input-label">Games Rules</span>
-            <div className="input-field">
+            <div className="input-field2">
               <span>10</span>
             </div>
           </div>

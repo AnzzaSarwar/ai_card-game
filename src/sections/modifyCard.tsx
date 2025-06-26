@@ -133,69 +133,101 @@ export function ModifyCards() {
         ))}
       </Grid> */}
 
-      <Grid container spacing={2} justifyContent="center">
-              {cards.map((card, index) => (
-                <Grid
-                  size={{ xs: 4, sm: 3, md: 2.4, lg: 2, xl: 1.5 }}
-                  key={card.id}
-                  display="flex"
-                  justifyContent="center"
-                >
-                  <Box
-                  onClick={() => handleEdit(card.id)}
-                    sx={{
-                      position: 'relative',
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      background: '#fff',
-                      border: '2px solid #ccc',
-                      height: { xs: 140, sm: 160, md: 220, lg: 220, xl: 220 },
-                      width: { xs: 90, sm: 110, md: 140, lg: 160, xl: 180 },
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      cursor: 'pointer',
-                      transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-                      '&:hover': {
-                        transform: 'scale(1.03)', // Add a subtle hover effect
-                        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                      },
-                    }}
-                  >
-                    <img
-                      src={card.image}
-                      alt={`Card ${index + 1}`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                    {/* {index === 0 && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          bottom: 8,
-                          backgroundColor: '#87739E',
-                          color: 'white',
-                          padding: '6px 12px',
-                          borderRadius: '12px',
-                          width: 80,
-                          fontSize: '0.8rem',
-                          textAlign: 'center',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Button onClick={handleEdit}>
-                        Edit
-      
-                        </Button>
-                      </Box>
-                    )} */}
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+    {/* Mobile Scrollable Box Wrapper */}
+<Box
+  sx={{
+    overflowX: { xs: 'auto', md: 'unset' },
+    display: { xs: 'flex', md: 'none' },
+    gap: 3,
+    py: 2,
+    px: 1,
+    scrollbarWidth: 'none', // Firefox
+    '&::-webkit-scrollbar': {
+      display: 'none', // Chrome
+    },
+  }}
+>
+  {cards.map((card, index) => (
+    <Box
+      key={card.id}
+      onClick={() => handleEdit(card.id)}
+      sx={{
+        minWidth: 120,
+        maxWidth: 140,
+        height: 180,
+        borderRadius: '16px',
+        overflow: 'hidden',
+        background: '#fff',
+        border: '2px solid #ccc',
+        flexShrink: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'pointer',
+        transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+        '&:hover': {
+          transform: 'scale(1.03)',
+          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+        },
+      }}
+    >
+      <img
+        src={card.image}
+        alt={`Card ${index + 1}`}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+        }}
+      />
+    </Box>
+  ))}
+</Box>
+
+{/* Grid View for tablets and up */}
+<Grid container spacing={2} justifyContent="center" sx={{ display: { xs: 'none', md: 'flex' } }}>
+  {cards.map((card, index) => (
+    <Grid
+      key={card.id}
+      size={{xs:4 , sm:3, md:2.4, lg:2, xl:1.5}}
+
+      display="flex"
+      justifyContent="center"
+    >
+      <Box
+        onClick={() => handleEdit(card.id)}
+        sx={{
+          borderRadius: '16px',
+          overflow: 'hidden',
+          background: '#fff',
+          border: '2px solid #ccc',
+          height: { xs: 140, sm: 160, md: 220 },
+          width: { xs: 90, sm: 110, md: 140 },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+          '&:hover': {
+            transform: 'scale(1.03)',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+          },
+        }}
+      >
+        <img
+          src={card.image}
+          alt={`Card ${index + 1}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
+    </Grid>
+  ))}
+</Grid>
+
 
       {/* Pagination */}
       <Box

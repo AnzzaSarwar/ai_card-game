@@ -4,13 +4,26 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
-import { Card, Stack, styled, TextField, IconButton, CardContent, InputAdornment } from '@mui/material';
+import {
+  Card,
+  Stack,
+  styled,
+  TextField,
+  IconButton,
+  CardContent,
+  InputAdornment,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
 export function Notifications() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const CategoryButton = styled(Button)(({ theme }) => ({
-    minWidth: '14%',
+    width: isMobile ? '100%' : 'auto',
     padding: '15px',
     borderRadius: '14px',
     textTransform: 'none',
@@ -36,54 +49,75 @@ export function Notifications() {
   }));
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
   const notifications = [
     {
       title: 'NEW ORDER UPDATE',
-      description: "Your Order For 'Epic Fantasy Cards' Has Shipped And Is On Its Way! Track Your Package Here.",
+      description:
+        "Your Order For 'Epic Fantasy Cards' Has Shipped And Is On Its Way! Track Your Package Here.",
     },
     {
       title: 'PROJECT STATUS ALERT',
-      description: "Your Game Project 'Space Odyssey' Has Been Approved! You Can Now Proceed To The Card Editor.",
+      description:
+        "Your Game Project 'Space Odyssey' Has Been Approved! You Can Now Proceed To The Card Editor.",
     },
     {
       title: 'PLATFORM ANNOUNCEMENT',
-      description: "We've Just Launched New Fantasy-Themed Templates! Check Them Out And Start Creating Your Next Game.",
+      description:
+        "We've Just Launched New Fantasy-Themed Templates! Check Them Out And Start Creating Your Next Game.",
     },
     {
       title: 'ORDER CONFIRMATION',
-      description: "Your Payment For 'Arcane Quest Cards' Has Been Successfully Processed. Expect Delivery By Next Week.",
+      description:
+        "Your Payment For 'Arcane Quest Cards' Has Been Successfully Processed. Expect Delivery By Next Week.",
     },
     {
       title: 'GAME UPDATE',
-      description: "The 'Dungeon Crawler' Game Template Has Been Updated With New Customization Options. Check It Out!",
-    }
+      description:
+        "The 'Dungeon Crawler' Game Template Has Been Updated With New Customization Options. Check It Out!",
+    },
   ];
-  
-
 
   return (
     <DashboardContent maxWidth="xl" sx={{ color: '#fff' }}>
-      <Typography variant="h4" sx={{ mb: 3 }} className='heading'>
+      <Typography variant="h4" sx={{ mb: 3 }} className="heading">
         Notifications
       </Typography>
 
       <Box sx={{ mb: 8 }}>
-        <Stack direction="row" alignItems="center" spacing={2} sx={{ mt: 2 }}>
-          <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'stretch', sm: 'center' }}
+          spacing={2}
+          sx={{ mt: 2 }}
+        >
+          {/* Category Buttons */}
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            sx={{
+              flexGrow: 1,
+              flexWrap: 'wrap',
+              justifyContent: { xs: 'center', sm: 'flex-start' },
+              alignItems: { xs: 'stretch', sm: 'center' },
+            }}
+          >
             <CategoryButton variant="contained">All Notification</CategoryButton>
-            <CategoryButton variant="text" sx={{ minWidth: '8%', p: '15px' }}>Orders</CategoryButton>
-            <CategoryButton variant="text" sx={{ minWidth: '8%', p: '15px' }}>Games</CategoryButton>
-            <CategoryButton variant="text" sx={{ minWidth: '8%', p: '15px', border: '2px solid #87739E' }}>Other</CategoryButton>
+            <CategoryButton variant="text">Orders</CategoryButton>
+            <CategoryButton variant="text">Games</CategoryButton>
+            <CategoryButton variant="text" sx={{ border: '2px solid #87739E' }}>
+              Other
+            </CategoryButton>
           </Stack>
-          
+
+          {/* Search Input */}
           <TextField
             size="small"
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            sx={{ 
-              width: '250px',
+            sx={{
+              width: { xs: '100%', sm: '250px' },
               '& .MuiOutlinedInput-root': {
                 borderRadius: '14px',
                 backgroundColor: 'transparent',
@@ -109,42 +143,38 @@ export function Notifications() {
         </Stack>
       </Box>
 
-
+      {/* Notifications List */}
       {notifications.map((notification, index) => (
-  <Card
-    key={index}
-    sx={{
-      mb: 3,
-      borderRadius: 3,
-      background: '#29193C',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid #FFFFFF',
-      color: 'white',
-      cursor: 'pointer',
-      padding: 2
-    }}
-  >
-    <CardContent>
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <IconButton>
-          <img src="/public/En.png" alt="icon" width={50} />
-        </IconButton>
-        <Box>
-          <Typography variant="subtitle2" fontWeight={600}>
-            {notification.title}
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#cfcfcf' }}>
-            {notification.description}
-          </Typography>
-        </Box>
-      </Stack>
-    </CardContent>
-  </Card>
-))}
-
-      
-
-    
+        <Card
+          key={index}
+          sx={{
+            mb: 3,
+            borderRadius: 3,
+            background: '#29193C',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid #FFFFFF',
+            color: 'white',
+            cursor: 'pointer',
+            padding: 2,
+          }}
+        >
+          <CardContent>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <IconButton>
+                <img src="/public/En.png" alt="icon" width={isMobile ? 40 : 50} />
+              </IconButton>
+              <Box>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  {notification.title}
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#cfcfcf' }}>
+                  {notification.description}
+                </Typography>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+      ))}
     </DashboardContent>
   );
 }
