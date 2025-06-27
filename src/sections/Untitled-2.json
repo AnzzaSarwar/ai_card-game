@@ -1,0 +1,42 @@
+{
+    "success": true,
+    "message": "New RuleSet created successfully.",
+    "data": {
+        "name": "Talking Tom",
+        "userId": null,
+        "isGuestRuleSet": true,
+        "difficulty_level": "moderate",
+        "game_roles": 8,
+        "rules_data": [
+            {
+                "heading": "Objective",
+                "description": "Be the last player with cards remaining.",
+                "status": "enabled"
+            },
+            {
+                "heading": "Setup",
+                "description": "Each player is dealt an equal number of cards from the deck.",
+                "status": "enabled"
+            },
+            {
+                "heading": "Gameplay",
+                "description": "Players take turns playing cards into a central pile. If a \"Slap\" card is played, the next player must correctly \"Eat\" or \"Drink\" based on the \"Slap\" card's instruction or take the pile. If any player incorrectly slaps, eats, or drinks they must take the pile.",
+                "status": "enabled"
+            },
+            {
+                "heading": "Card Types",
+                "description": "The deck consists of \"Slap,\" \"Eat,\" \"Drink,\" and \"Play\" cards, each having different effects on gameplay.",
+                "status": "enabled"
+            },
+            {
+                "heading": "Losing",
+                "description": "A player loses when they run out of cards.",
+                "status": "enabled"
+            }
+        ],
+        "_id": "685706fdb74adf891e30340f",
+        "createdAt": "2025-06-21T19:24:45.810Z",
+        "updatedAt": "2025-06-21T19:24:45.810Z",
+        "__v": 0
+    }
+}

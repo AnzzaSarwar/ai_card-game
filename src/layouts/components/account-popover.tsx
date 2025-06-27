@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 
 import { useRouter, usePathname } from 'src/routes/hooks';
+import { useProfile } from 'src/routes/hooks/use-profile';
 
 import { _myAccount } from 'src/_mock';
 
@@ -29,6 +30,8 @@ export type AccountPopoverProps = IconButtonProps & {
 
 export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps) {
   const router = useRouter();
+
+  const user = useProfile()
 
   const pathname = usePathname();
 
@@ -85,11 +88,13 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
       >
         <Box sx={{ p: 2, pb: 1.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {_myAccount?.displayName}
+            {/* {_myAccount?.displayName} */}
+            {user?.displayName}
           </Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {_myAccount?.email}
+            {/* {_myAccount?.email} */}
+            {user?.email}
           </Typography>
         </Box>
 

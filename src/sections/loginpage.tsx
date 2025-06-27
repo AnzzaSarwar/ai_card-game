@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import card2 from '../../public/cardnav.png';
 import card4 from '../../public/math3[1].png';
@@ -6,6 +9,75 @@ import card1 from '../../public/thorin3[1].png';
 import logo from '../../public/assets/icons/logos/mainlogo.svg';
 
 export default function Login() {
+
+  const navigate = useNavigate()
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleInput = (e: any) => {
+        const {name , value} = e.target
+        setFormData((prev)=>({
+            ...prev ,
+            [name]: value
+        }))
+    }
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault()
+  if (!formData.email || !formData.password) {
+    alert("All fields are required");
+    return;
+  }
+
+  const loginData = {
+    email: formData.email,
+    password: formData.password,
+  };
+
+  try {
+    const response = await axios.post(
+      'http://52.203.31.162:5001/api/auth/login',
+      loginData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (response.data.success) {
+      alert('Login successful!');
+      console.log('Token:', response.data.token);
+      console.log('User Data:', response.data.data);
+
+      // Optional: store token in localStorage or context
+      localStorage.setItem('token', response.data.token);
+      navigate('/')
+      // Redirect or update UI
+      // navigate('/dashboard'); (if using react-router)
+    } else {
+      alert(response.data.message || 'Login failed');
+    }
+  } catch (error: any) {
+    if (error.response) {
+      const status = error.response.status;
+      if (status === 400) {
+        alert('Missing email or password');
+      } else if (status === 401) {
+        alert('Invalid credentials');
+      } else {
+        alert('Server error. Try again later.');
+      }
+    } else {
+      console.error(error);
+      alert('Something went wrong. Please check your connection.');
+    }
+  }
+};
+
   return (
     <div className="signin-container">
       {/* Background Cards */}
@@ -29,15 +101,15 @@ export default function Login() {
 
         {/* Right Side */}
         <div className="signin-right">
-          <form className="form-bg">
+          <form className="form-bg" onSubmit={handleLogin}>
             <h2 className="form-title">Login</h2>
             <p className="form-subtitle">Log in to stay connected.</p>
 
             <label>Email</label>
-            <input type="email" className="input" />
+            <input type="email" className="input" name='email' onChange={handleInput} />
 
             <label>Password</label>
-            <input type="password" className="input" />
+            <input type="password" className="input" name='password' onChange={handleInput} />
 
             <div className="form-row">
               <div>
@@ -57,7 +129,7 @@ export default function Login() {
             </div> */}
 
             <p className="signup-link">
-              Don't have an account? <a href="sign-up">Click here to sign up.</a>
+              Don&apos;t have an account? <a href="sign-up">Click here to sign up.</a>
             </p>
           </form>
         </div>

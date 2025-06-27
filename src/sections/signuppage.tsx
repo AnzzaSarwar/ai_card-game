@@ -1,11 +1,71 @@
+import axios from 'axios'
+import { redirect } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
 
 import card2 from '../../public/cardnav.png';
 import card4 from '../../public/math3[1].png';
 import card3 from '../../public/movie5[1].png';
 import card1 from '../../public/thorin3[1].png';
 import logo from '../../public/assets/icons/logos/mainlogo.svg';
+// http://52.203.31.162:5001/api/
+
 
 export default function Signuppage() {
+
+    const [formData, setFormData] = useState({
+      username: '' , email: '', password: '' 
+    })
+
+    const handleInput = (e: any) => {
+        const {name , value} = e.target
+        setFormData((prev)=>({
+            ...prev ,
+            [name]: value
+        }))
+    }
+
+    const handleSubmit = async (e: any) => {
+      e.preventDefault()
+      // if(!formData.username || !formData.email || !formData.password) {
+      //   alert('All Fields are required')
+      //  }
+
+      //  const formDataToSend = new FormData()
+
+      //  formDataToSend.append('name' , formData.username)
+      //  formDataToSend.append('email' , formData.email)
+      //  formDataToSend.append('password' , formData.password)
+
+      const dataToSend = {
+    username: formData.username,
+    email: formData.email,
+    password: formData.password,
+  };
+
+       try {
+        const response = await axios.post('http://52.203.31.162:5001/api/auth/register', dataToSend, {
+          headers: {
+          'Content-Type': 'application/json',
+          }
+        })
+         if (!response.data.success) {
+      alert(response.data.message);
+    } else {
+      alert('User registered successfully!');
+      redirect('/dashboard')
+      console.log('JWT:', response.data.token);
+      console.log('User Data:', response.data.data);
+    }
+       } catch (error) {
+        console.log(error);
+        
+       }
+    }
+
+
+
+
+
   return (
     <div className="signin-container">
       {/* Background Cards */}
@@ -29,15 +89,21 @@ export default function Signuppage() {
 
         {/* Right Side */}
         <div className="signin-right">
-          <form className="form-bg">
-            <h2 className="form-title">Sign Up</h2>
+          <form className="form-bg" onSubmit={handleSubmit}>
+            <h2 className="form-title">Create an Account</h2>
             <p className="form-subtitle">Sign up to stay connected.</p>
 
+            <label>Name</label>
+            <input onChange={handleInput} type="text" className="input" name='username' />
+            <label>Phone</label>
+            <input onChange={handleInput} type="text" className="input" name='phone' />
             <label>Email</label>
-            <input type="email" className="input" />
+            <input onChange={handleInput} type="email" className="input" name='email' />
+            <label>Address</label>
+            <input onChange={handleInput} type="text" className="input" name='address' />
 
             <label>Password</label>
-            <input type="password" className="input" />
+            <input onChange={handleInput} type="password" className="input" name='password' />
 
             <div className="form-row">
               <div>
