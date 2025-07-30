@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +11,9 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import GameCard from 'src/components/gamecard';
 import CreateCardForm from 'src/components/CreateCardForm';
+
+import dummyData from '../_mock/create_with_deck_response.json'; // Import dummy data for testing
+
 
 export default function CreateCard1() {
   const gameCards = [
@@ -37,9 +41,39 @@ export default function CreateCard1() {
     {
       img: '/Frame 47641.png',
       title: 'Small 3',
-    },
-  ];
+    },];
 
+  const [result, setResult] = React.useState<any>(null);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const boxId = localStorage.getItem('boxId');
+        const token = localStorage.getItem('token');
+        if (!boxId || !token) return;
+        // const res = await axios.get(`http://52.203.31.162:5001/api/boxes/${boxId}`,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        const res = dummyData
+                const box = res.data.box.cards;
+                box.map((card: any) => {
+          // console.log(card.cardFrontElements);
+          card.cardFrontElements.map((element: any) => {
+        setResult(element.imageUrl);
+          });
+        })
+        // Set result to the card back image (adjust path as needed)
+        // setResult(box);
+      } catch (error) {
+        setResult(null);
+      }
+    };
+    fetchData();
+  }, []);
+  
   // --- inside CreateCard1 function ke top pe ---
   const [open, setOpen] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
@@ -51,487 +85,510 @@ export default function CreateCard1() {
 
   const handleClose = () => setOpen(false);
 
+  const [mainImage, setMainImage] = React.useState<string>(dummyData.data.box.cards[0].cardFrontElements[0]?.imageUrl);
+
+React.useEffect(() => {
+  const firstCard = dummyData.data.box.cards[0];
+  const baseImage = firstCard.cardFrontElements[0]?.imageUrl;
+  const savedData = localStorage.getItem('customCanvas_' + firstCard._id);
+  if (savedData) {
+    const data = JSON.parse(savedData);
+    if (data.width && data.height) {
+      const previewCanvas = document.createElement('canvas');
+      previewCanvas.width = data.width;
+      previewCanvas.height = data.height;
+      const ctx = previewCanvas.getContext('2d');
+      if (!ctx) {
+        setMainImage(baseImage);
+        return;
+      }
+      const bgImg = new window.Image();
+      bgImg.src = baseImage;
+      bgImg.onload = () => {
+        ctx.clearRect(0, 0, data.width, data.height);
+        ctx.drawImage(bgImg, 0, 0, data.width, data.height);
+        ctx.strokeStyle = '#ff0000';
+        ctx.lineWidth = 2;
+        (data.lines || []).forEach(line => {
+          ctx.beginPath();
+          line.forEach((pt, i) => {
+            if (i === 0) ctx.moveTo(pt.x, pt.y);
+            else ctx.lineTo(pt.x, pt.y);
+          });
+          ctx.stroke();
+        });
+        (data.shapes || []).forEach(shape => {
+          ctx.save();
+          ctx.strokeStyle = shape.color || '#00bcd4';
+          ctx.lineWidth = 2;
+          if (shape.type === 'rect') {
+            const x = shape.start.x;
+            const y = shape.start.y;
+            const w = shape.end.x - shape.start.x;
+            const h = shape.end.y - shape.start.y;
+            ctx.strokeRect(x, y, w, h);
+          } else if (shape.type === 'circle') {
+            const cx = (shape.start.x + shape.end.x) / 2;
+            const cy = (shape.start.y + shape.end.y) / 2;
+            const rx = Math.abs(shape.end.x - shape.start.x) / 2;
+            const ry = Math.abs(shape.end.y - shape.start.y) / 2;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx, ry, 0, 0, 2 * Math.PI);
+            ctx.stroke();
+          }
+          ctx.restore();
+        });
+        (data.images || []).forEach(imgObj => {
+          if (imgObj.dataUrl) {
+            const img = new window.Image();
+            img.src = imgObj.dataUrl;
+            img.onload = () => {
+              ctx.drawImage(img, imgObj.x, imgObj.y, imgObj.width, imgObj.height);
+              setMainImage(previewCanvas.toDataURL());
+            };
+          }
+        });
+        ctx.save();
+        ctx.font = '20px Arial';
+        (data.texts || []).forEach(t => {
+          ctx.fillStyle = '#222';
+          ctx.fillText(t.text, t.x, t.y);
+        });
+        ctx.restore();
+        setMainImage(previewCanvas.toDataURL());
+      };
+    } else {
+      setMainImage(baseImage);
+    }
+  } else {
+    setMainImage(baseImage);
+  }
+}, []);
+
   return (
     <>
-    <DashboardContent maxWidth={false} sx={{ color: '#fff', margin: '2%', marginTop: '0px' }}>
-       <Box sx={{ mb: 4 }}>
-              <h1 style={{margin: '0'}}>
-                Create Your Card Design
-      </h1>      </Box>
-  {/* Main container with divider */}
-  <Box sx={{ 
-    display: 'flex',
-    flexDirection: { xs: 'column', md: 'row' },
-    width: '100%',
-    position: 'relative'
-  }}>
-    {/* Left Side - Form Component with divider */}
-    <Box sx={{
-      flex: 1,
-      pr: { md: 4 },
-      mb: { xs: 4, md: 0 },
-      width: 500,
+      <DashboardContent maxWidth={false} sx={{ color: '#fff', margin: '2%', marginTop: '0px' }}>
+        <Box sx={{ mb: 4 }}>
+          <h1 style={{ margin: '0' }}>Create Your Card Design</h1>
+        </Box>
 
-    }}>
-      <CreateCardForm />
-    </Box>
 
-    {/* Right Side Container with divider */}
-    <Box sx={{
-      width: { xs: '100%', md: '40%' },
-      mr:10,
-      mt:0
-    
-    }}>
-      {/* Card Generation Box */}
-      <Box sx={{ 
-        border: '2px solid #948d96',
-        borderRadius: 5,
-        background: '#29193c',
-        mb: 4,
-        height:"40%",
-      }}>
-        <Box sx={{ p: 3 }}>
-          <Typography variant="h6" sx={{ ml: 2, mb: 2, color: '#fff' }}>
-            Generate Card Version
-          </Typography>
-          
-          <Box sx={{
+
+        {/* Main container with responsive layout */}
+        <Box
+          sx={{
+
             display: 'flex',
-            borderRadius: '15px',
-            overflow: 'hidden',
-            height: 500,
-            width: '80%',
-            p: 1,
-            ml:5
-          }}>
-            <Box 
-              onClick={() => handleOpen(itemData2[0].img)}
-              sx={{
-                flex: 3,
-                height: '100%',
-                borderRight: '2px solid #78766f',
-                overflow: 'hidden',
-                borderRadius: '15px',
-                border: '2px solid #6c6e69',
-                background: '#484a45',
-                p: 2,
-                mr: 2,
-                cursor: 'pointer'
+            flexDirection: { xs: 'column', md: 'row' },
+            width: '100%',
+            position: 'relative',
+            gap: { xs: 4, md: 5 },
+          }}
+        >
+          {/* Left Side - Form */}
+          <Box
+            sx={{
+              flex: 1,
+              pr: { md: 4 },
+              mb: { xs: 4, md: 0 },
+              width: '100%',
+              maxWidth: { xs: '65%', md: '70%' },
+              boxSizing: 'border-box',
+              '& input': {
+                width: '100%',
+                fontSize: { xs: '0.9rem', sm: '1rem' },
+              },
+              '& .MuiFormControl-root': {
+                width: '100%',
+              },
+              '& .MuiTextField-root': {
+                width: '100%',
+              },
+            }}
+          >
+            <CreateCardForm />
+          </Box>
 
+          {/* Right Side Container */}
+          <Box
+            sx={{
+              width: { xs: '100%', md: '55%' },
+              mt: { xs: 0, md: 0 },
+              mr: { xs: 0, md: 4 },
+            }}
+          >
+            {/* Card Generation Box */}
+            <Box
+              sx={{
+                border: '2px solid #948d96',
+                borderRadius: 5,
+                background: '#29193c',
+                mb: 4,
+                height: 'auto',
+                px: 2,
+                pt: 3,
+                pb: 2,
               }}
             >
-              <img
-                src={itemData2[0].img}
-                alt={itemData2[0].title}
-                style={{
-                  width: '130%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '10px',
+              <Typography variant="h6" sx={{ ml: 2, mb: 2, color: '#fff' }}>
+                Generate Card Version
+              </Typography>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  borderRadius: '15px',
+                  overflow: 'hidden',
+                  width: '100%',
+                  p: 1,
+                  gap: 2,
                 }}
-              />
+              >
+                {/* Main Preview */}
+                <Box
+                  onClick={() => handleOpen(mainImage)}
+                  sx={{
+                    flex: 3,
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                    borderRadius: '15px',
+                    border: '2px solid #6c6e69',
+                    background: '#484a45',
+                    p: 1,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <img
+                    src={mainImage}
+                    alt={itemData2[0].title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: '10px',
+                    }}
+                  />
+                </Box>
+
+                {/* Vertical Thumbnails */}
+                <Box
+                  sx={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    padding: 1,
+                  }}
+                >
+                  {itemData2.slice(1, 4).map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        flex: 1,
+                        borderRadius: '15px',
+                        overflow: 'hidden',
+                        border: '1px solid #78766f',
+                        background: '#484a45',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        p: 1,
+                      }}
+                    >
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          borderRadius: '10px',
+                          maxHeight: '120px',
+                        }}
+                      />
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
             </Box>
-{/* Vertical Thumbnails (Right side) */}
-<Box sx={{
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '15px',
-  padding: '15px',
-}}>
-  {itemData2.slice(1, 4).map((item, index) => (
-    <Box
-      key={index}
-      sx={{
-        flex: 1,
-        borderRadius: '15px',
-        overflow: 'hidden',
-        border: '1px solid #78766f',
-        width: '120%', 
-        background: '#484a45',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        p: 1 // Reduced padding
-      }}
-    >
-      <img
-        src={item.img}
-        alt={item.title}
-        style={{
-          width: '100%', 
-          height: '100%', 
-          objectFit: 'contain', 
-          borderRadius: '10px',
-          maxHeight: '120px' 
-        }}
-      />
-    </Box>
-  ))}
-</Box>
+
+            {/* Other Card Versions */}
+            <Box>
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: 2,
+                  color: '#fff',
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  mt: 6,
+                }}
+              >
+                Other Card Versions
+              </Typography>
+
+              <Grid container spacing={2} justifyContent="center">
+                {gameCards.map((game, index) => (
+                  <Grid size={{xs:12 , sm:6, md:4}} key={index}>
+                    <Box display="flex" justifyContent="center">
+                      <GameCard title={game.title} date={game.date} image={game.image} />
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+
           </Box>
         </Box>
-      </Box>
+      </DashboardContent>
 
-      {/* Other Card Versions Section */}
-      <Box>
-        <Typography variant="h6" sx={{ 
-          mb: 2, 
-          color: '#fff',
-          fontSize: '1.25rem',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          mt:10,
-        }}>
-          Other Card Versions
-        </Typography>
-        <Grid container spacing={2} justifyContent="center">
-          {gameCards.map((game, index) => (
-            <Grid  key={index}>
-              <Box display="flex" justifyContent="center">
-                <GameCard 
-                  title={game.title}
-                  date={game.date}
-                  image={game.image}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+
+
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '95%',
+            maxWidth: 1000,
+            bgcolor: '#2f2439',
+            border: '2px solid #6c6e69',
+            boxShadow: 24,
+            p: { xs: 2, sm: 4 },
+            borderRadius: '20px',
+            textAlign: 'center',
+             overflow: 'hidden',
+            overflowY: 'auto',
+            maxHeight: '90vh',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: '#3e3e3e',
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: 'linear-gradient(180deg, #8E2DE2, #4A00E0)', // Purple to blue
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              background: 'linear-gradient(180deg, #a452f5, #6939f0)', // Lighter on hover
+            },
+          }}
+        >
+          {/* FLEX CONTAINER */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: '20px',
+              alignItems: 'center',
+            }}
+          >
+            {/* IMAGE SIDE */}
+            <Box
+              sx={{
+                flex: 1,
+                borderRadius: '30px',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: 1,
+              }}
+            >
+              {selectedImage && (
+                <img
+                  src={selectedImage}
+                  alt="Selected"
+                  style={{
+                    width: '100%',
+                    maxWidth: '400px',
+                    height: 'auto',
+                    objectFit: 'contain',
+                    borderRadius: '30px',
+                    border: '2px solid white',
+                    background: '#a8a3a3',
+                    padding: '10px',
+                  }}
+                />
+              )}
+            </Box>
+
+
+            {/* TEXT SIDE */}
+            <Box
+              sx={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                alignItems: 'center',
+              }}
+            >
+              <Box sx={{ width: '60px', height: '60px' }}>
+                <img
+                  src="/Frame 47651.png"
+                  alt="Success Icon"
+                  style={{ width: '100%', height: '100%' }}
                 />
               </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Box>
-  </Box>
-</DashboardContent>
-    <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={{
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '90%',  // Increased width
-    maxWidth: 1000,  // Maximum width
-    bgcolor: '#2f2439',
-    border: '2px solid #6c6e69',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: '20px',
-    textAlign: 'center'
-  }}>
-    <Box sx={{
-      display: 'flex',
-      flexDirection: { xs: 'column', md: 'row' },  // Responsive layout
-      gap: '20px',
-      alignItems: 'center'
-    }}>
-     {/* Left Side - Image */}
-<Box
-  sx={{
-    flex: 1,
-    borderRadius: '30px',
-    overflow: 'hidden',
-    maxHeight: '600px',
-    width:'130%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 1,
-    mr:2
-  }}
->
-  {selectedImage && (
-    <img
-      src={selectedImage}
-      alt="Selected"
-      style={{
-        width: '70%',
-        height: '100%',
-        objectFit: 'contain', // better for card-style fit
-        borderRadius: '30px',
-        border: '2px solid white', // dashed border like card
-        background: '#a8a3a3',
-        padding: '20px',
-      }}
-    />
-  )}
-</Box>
 
+              <Typography variant="h5" sx={{ color: '#22C55E', fontWeight: 'bold', mt: 1 }}>
+                This is Success Create!
+              </Typography>
 
-      {/* Right Side - Content */}
-      <Box sx={{
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-  alignItems: 'center'
-}}>
-  
+              <Typography variant="body2" sx={{ color: '#fff' }}>
+                Copyright You have built the most amazing art in this world
+              </Typography>
 
-  {/* Your Icon - Centered below heading */}
-  <Box sx={{
-    width: '70px',
-    height: '50px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    mt:4
-  }}>
-    <img 
-      src="/Frame 47651.png" 
-      alt="Success Icon"
-      style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'contain'
-      }}
-    />
-  </Box>
-{/* H3 Heading - Topmost element */}
-<Typography 
-  variant="h4" 
-  sx={{ 
-    color: '#22C55E',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    mb: 0.5, // very little space after heading
-     mt:3
-  }}
->
-  This is Success Create!
-</Typography>
+              {/* Order Now Button */}
+              <Box sx={{ width: '100%', textAlign: 'center' }}>
+                <Link to="/Ordershiping" style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: '#8a0303',
+                      color: 'white',
+                      fontWeight: 600,
+                      borderRadius: '6px',
+                      px: 3,
+                      py: 1.5,
+                      fontSize: '1rem',
+                      mt: 1,
+                      ':hover': {
+                        backgroundColor: '#e6b800',
+                      },
+                    }}
+                    fullWidth
+                  >
+                    <img
+                      src="/Group.png"
+                      alt="icon"
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        marginRight: 8,
+                      }}
+                    />
+                    Order Now
+                  </Button>
+                </Link>
+              </Box>
 
-{/* Paragraph under heading */}
-<Typography 
-  variant="body2" 
-  sx={{ 
-    color: '#ffffff',
-    textAlign: 'center',
-    mt: 0, // no extra margin-top
-    mb:2
-  }}
->
-  Copyright You have built the most amazing art in this world
-</Typography>
+              {/* Top 4 Buttons */}
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
+                  gap: 2,
+                  mt: 2,
+                }}
+              >
+                {[
+                  { label: 'Edit Game Rules', icon: '/Vector (2).png' },
+                  { label: 'Edit Card Fronts', icon: '/Vector (2).png' },
+                  { label: 'Edit Card Back', icon: '/Vector (2).png' , link: '/EditCardBox'},
+                  { label: 'Edit Card Box', icon: '/Vector (2).png', link: '/EditCardBox' },
+                ].map((item) => {
+                  const button = (
+                    <Button
+                      key={item.label}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: '#8a0303',
+                        color: 'white',
+                        fontWeight: 600,
+                        borderRadius: '9px',
+                        py: 1.5,
+                        fontSize: '0.9rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        ':hover': {
+                          backgroundColor: '#e6b800',
+                        },
+                      }}
+                      fullWidth
+                    >
+                      <img src={item.icon} alt="icon" style={{ width: '20px', height: '18px' }} />
+                      {item.label}
+                    </Button>
+                  );
+                  return item.link ? (
+                    <Link to={item.link} key={item.label} style={{ textDecoration: 'none' }}>
+                      {button}
+                    </Link>
+                  ) : (
+                    button
+                  );
+                })}
+              </Box>
 
-{/* Order Now Button */}
-<Box
-  sx={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '10px',
-    fontSize: '10px'
-  }}
->
-  {/* Correctly wrap the Button with the Link */}
-  <Link
-    to="/Ordershiping" // Link to your internal route
-    style={{ textDecoration: 'none' }}
-  >
-    <Button
-      variant="contained"
-      sx={{
-        backgroundColor: '#8a0303',
-        width: 400,
-        color: 'white',
-        fontWeight: 600,
-        borderRadius: '6px',
-        padding: '14px',
-        ml: 2,
-        fontSize: '2vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '8px', // space between icon and text
-        ':hover': {
-          backgroundColor: '#e6b800',
-        }
-      }}
-    >
-      {/* Small Icon before text */}
-      <img
-        src="/Group.png" // put your icon image path here
-        alt="icon"
-        style={{
-          width: '20px',
-          height: '20px',
-          marginBottom: 3,
-          marginRight: 3
-        }}
-      />
-      Order Now
-    </Button>
-  </Link>
-</Box>
+              {/* Social Icons */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 2,
+                  mt: 3,
+                  flexWrap: 'wrap',
+                }}
+              >
+                {['Instagram', 'Twitter', 'Discord', 'Dribbble', 'LinkedIn'].map((name) => (
+                  <Button
+                    key={name}
+                    variant="text"
+                    sx={{
+                      minWidth: '40px',
+                      height: '40px',
+                      padding: 0,
+                      ':hover': { backgroundColor: 'transparent' },
+                    }}
+                  >
+                    <img
+                      src={`/${name}.png`}
+                      alt={name}
+                      style={{ width: '30px', height: '30px' }}
+                    />
+                  </Button>
+                ))}
+              </Box>
 
-
-        {/* Top 4 Buttons */}
-{/* Top 4 Buttons */}
-<Box
-  sx={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '15px',
-  }}
->
-  {[
-    { label: 'Edit Game Rules', icon: '/Vector (2).png' },
-    { label: 'Edit Card Fonts', icon: '/Vector (2).png' },
-    { label: 'Edit Card Back', icon: '/Vector (2).png' },
-    { label: 'Edit Card Box', icon: '/Vector (2).png', link: '/EditCardBox' }, // Added link property
-  ].map((item) => {
-    const button = (
-      <Button
-        key={item.label}
-        variant="contained"
-        sx={{
-          backgroundColor: '#8a0303',
-          color: 'white',
-          fontWeight: 600,
-          borderRadius: '9px',
-          width: 170,
-          mt: 1,
-          padding: '16px',
-          fontSize: '0.8rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '8px',
-          ':hover': {
-            backgroundColor: '#e6b800',
-          },
-        }}
-      >
-        <img 
-          src={item.icon} 
-          alt="icon"
-          style={{
-            width: '20px',
-            height: '18px',
-            marginBottom: 3
-          }}
-        />
-        {item.label}
-      </Button>
-    );
-    
-    return item.link ? (
-      <Link to={item.link} key={item.label} style={{ textDecoration: 'none' }}>
-        {button}
-      </Link>
-    ) : button;
-  })}
-</Box>
-
-          
-
-     {/* Bottom 4 Icons */}
-     <Box sx={{
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '15px',
-  mt: 2,
-   
-}}>
-  {/* Instagram Icon */}
-  <Button 
-    variant="text" // changed to "text" to remove borders
-    sx={{
-      minWidth: '40px',
-      height: '40px',
-      padding: 0,
-      ':hover': {
-        backgroundColor: 'transparent', // no hover background
-      }
-    }}
-  >
-    <img src="/Instagram.png" alt="Instagram" style={{ width: '30px', height: '30px', }} />
-  </Button>
-
-  {/* Twitter Icon */}
-  <Button 
-    variant="text" // changed to "text" to remove borders
-    sx={{
-      minWidth: '40px',
-      height: '40px',
-      padding: 0,
-      ':hover': {
-        backgroundColor: 'transparent', // no hover background
-      }
-    }}
-  >
-    <img src="/Twitter.png" alt="Twitter" style={{ width: '30px', height: '30px' }} />
-  </Button>
-
-  {/* YouTube Icon */}
-  <Button 
-    variant="text" // changed to "text" to remove borders
-    sx={{
-      minWidth: '40px',
-      height: '40px',
-      padding: 0,
-      ':hover': {
-        backgroundColor: 'transparent', // no hover background
-      }
-    }}
-  >
-    <img src="/Discord.png" alt="YouTube" style={{ width: '30px', height: '30px' }} />
-  </Button>
-
-  {/* LinkedIn Icon */}
-  <Button 
-    variant="text" // changed to "text" to remove borders
-    sx={{
-      minWidth: '40px',
-      height: '40px',
-      padding: 0,
-      ':hover': {
-        backgroundColor: 'transparent', // no hover background
-      }
-    }}
-  >
-    <img src="/Dribbble.png" alt="LinkedIn" style={{ width: '30px', height: '30px' }} />
-  </Button>
-  
-  {/* LinkedIn Icon */}
-  <Button 
-    variant="text" // changed to "text" to remove borders
-    sx={{
-      minWidth: '40px',
-      height: '40px',
-      padding: 0,
-
-      ':hover': {
-        backgroundColor: 'transparent', // no hover background
-      }
-    }}
-  >
-    <img src="/LinkedIn.png" alt="LinkedIn" style={{ width: '30px', height: '30px',padding:0 }} />
-  </Button>
-</Box>
-</Box>
-</Box>
-
-    {/* Close Button */}
-    <Button onClick={handleClose} variant="contained" sx={{
-      mt: 3,
-      backgroundColor: '#8a0303',
-      fontWeight: 'bold',
-      borderRadius: '10px',
-      padding: '8px 24px',
-      ':hover': {
-        backgroundColor: '#e6b800',
-      }
-    }}>
-      Close
-    </Button>
-  </Box>
-</Modal>
-</>  
+              {/* Close Button */}
+              <Button
+                onClick={handleClose}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  backgroundColor: '#8a0303',
+                  fontWeight: 'bold',
+                  borderRadius: '10px',
+                  px: 4,
+                  py: 1.2,
+                  ':hover': {
+                    backgroundColor: '#e6b800',
+                  },
+                }}
+              >
+                Close
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Modal>
+    </>
 
   );
 }

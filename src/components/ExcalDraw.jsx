@@ -1,309 +1,441 @@
- 
-// Example, update the import path if needed
-import { useNavigate } from 'react-router-dom';
-import { Excalidraw } from '@excalidraw/excalidraw';
-import  {useRef, useState, useEffect, useCallback } from "react"; // Added useEffect, useRef, useCallback
-
-import { Box, Typography, CircularProgress } from "@mui/material";
+// Converts a backend element to Excalidraw element format
 
 
-const loadImageData = async (imageUrl) => {
-  try {
-    const response = await fetch(imageUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const blob = await response.blob();
-    const mimeType = blob.type; // Get MIME type from blob
 
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const dataURL = reader.result;
-        const img = new Image();
-        img.onload = () => {
-          resolve({
-            dataURL,
-            mimeType,
-            width: img.naturalWidth,
-            height: img.naturalHeight,
-          });
-        };
-        img.onerror = (error) => {
-           console.error("Image load error within promise:", error);
-           reject(new Error("Failed to load image dimensions"));
-        };
-        img.src = dataURL; // Use Data URL to trigger load for dimensions
-      };
-      reader.onerror = (error) => {
-         console.error("FileReader error:", error);
-         reject(new Error("Failed to read image blob"));
-      };
-      reader.readAsDataURL(blob);
-    });
-  } catch (error) {
-    console.error("Failed to fetch or process image:", error);
-    throw error; // Re-throw error to be caught by calling function
-  }
-};
+import React, { useRef, useState, useEffect } from 'react';
 
-const prepareInitialData = async (cardId) => {
-  console.log(`Preparing data for ${cardId}`);
-  const BASE_IMAGE_FILE_ID = "cardBaseImage"; // Constant ID for the background image file
+import MouseIcon from '@mui/icons-material/Mouse';
+import BrushIcon from '@mui/icons-material/Brush';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import TextFieldsIcon from '@mui/icons-material/TextFields';
+import CropSquareIcon from '@mui/icons-material/CropSquare';
+import FormatShapesIcon from '@mui/icons-material/FormatShapes';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { Box, Typography, TextField, Button, IconButton, Tooltip, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
-  // --- 1. Determine Image URL (Replace with your actual logic) ---
-  // This needs to map cardId to its specific image, e.g., from an object or API
-  const cardImageUrl = '/Math.jpg'; // Example: Using the same image for all cards
-  console.log(`Using image URL: ${cardImageUrl}`);
-
-  try {
-    // --- 2. Load Image Data (Data URL, dimensions) ---
-    const imageData = await loadImageData(cardImageUrl);
-    console.log(`Image loaded: ${imageData.width}x${imageData.height}`);
-
-    // --- 3. Load existing saved elements/appState (if any) ---
-    let savedData = null;
-    try {
-      const savedJson = localStorage.getItem(`card-drawing-${cardId}`);
-      if (savedJson) {
-        savedData = JSON.parse(savedJson);
-        console.log(`Loaded saved drawing data for ${cardId}`);
-      } else {
-         console.log(`No saved drawing data found for ${cardId}`);
-      }
-    } catch (error) {
-      console.error(`Failed to load or parse saved drawing for ${cardId}:`, error);
-      savedData = { elements: [], appState: {} }; // Fallback on error
-    }
-
-    // Ensure savedData has elements and appState arrays/objects
-    savedData = {
-        elements: savedData?.elements || [],
-        appState: savedData?.appState || {},
-    };
+import dummyData from '../_mock/create_with_deck_response.json';
 
 
-    // --- 4. Create the locked background image element ---
-    const backgroundImageElement = {
-      id: `bg_${cardId}`, // Unique ID for the element itself
-      type: 'image',
-      x: 0, // Position at top-left
-      y: 0,
-      width: imageData.width,
-      height: imageData.height,
-      angle: 0,
-      strokeColor: 'transparent', // No border
-      backgroundColor: 'transparent',
-      fillStyle: 'hachure',
-      strokeWidth: 1,
-      strokeStyle: 'solid',
-      roughness: 1,
-      opacity: 100,
-      groupIds: [],
-      strokeSharpness: 'sharp',
-      seed: Math.floor(Math.random() * 1000000), // Random seed
-      version: 1,
-      versionNonce: Math.floor(Math.random() * 1000000000),
-      isDeleted: false,
-      boundElements: null,
-      updated: Date.now(),
-      link: null,
-      locked: true, // --- LOCK THE IMAGE ---
-      fileId: BASE_IMAGE_FILE_ID, // Reference the file data
-      scale: [.2, .2], // Default scale
-    };
+const TOOL_SELECT = 'select';
+const TOOL_DRAW = 'draw';
+const TOOL_RECT = 'rect';
+const TOOL_CIRCLE = 'circle';
+const TOOL_TEXT = 'text';
+const TOOL_IMAGE = 'image';
 
-    // --- 5. Combine Background + Saved Elements ---
-    // Ensure the background is always the first element (rendered at the bottom)
-    // Filter out any previously saved (unlocked) version of the background potentially
-    const finalElements = [
-      backgroundImageElement,
-      ...savedData.elements.filter(el => el.id !== backgroundImageElement.id) // Add saved elements, removing old bg if any
-    ];
+const CustomCanvas = ({ cardId }) => {
+  const boxCards = dummyData.data.box.cards;
+  const cardData = boxCards.find(card => card._id === cardId) || boxCards[0];
+  const [width, setWidth] = useState(cardData?.width || 300);
+  const [height, setHeight] = useState(cardData?.height || 400);
+  const [drawing, setDrawing] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [tool, setTool] = useState(TOOL_DRAW);
+  const [lines, setLines] = useState([]); // Array of lines, each line is array of points
+  const [shapes, setShapes] = useState([]); // {type, start, end, color}
+  const [currentShape, setCurrentShape] = useState(null);
+  const [texts, setTexts] = useState([]); // {x, y, text}
+  const [addingText, setAddingText] = useState(false);
+  const [textInput, setTextInput] = useState('');
+  const [textPos, setTextPos] = useState({x:0, y:0});
+  const [images, setImages] = useState([]); // {x, y, img, width, height}
+  const [imageFile, setImageFile] = useState(null);
+  const [placingImage, setPlacingImage] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [selected, setSelected] = useState(null); // {type, index}
+  const [dragOffset, setDragOffset] = useState({x:0, y:0});
+  const canvasRef = useRef(null);
 
-    // --- 6. Prepare the files object ---
-    const files = {
-      [BASE_IMAGE_FILE_ID]: {
-        mimeType: imageData.mimeType,
-        id: BASE_IMAGE_FILE_ID,
-        dataURL: imageData.dataURL,
-        created: Date.now(),
-      },
-      // Include other files from savedData if necessary
-    };
-
-     // --- 7. Set initial App State (optional: center view on card) ---
-     const initialAppState = {
-         ...savedData.appState, // Keep saved state if any
-         // Center the view roughly on the card initially
-         scrollX: -imageData.width / 2 + (window.innerWidth / 2.5), // Adjust window width factor as needed
-         scrollY: -imageData.height / 2 + (window.innerHeight / 3), // Adjust window height factor as needed
-         currentItemStrokeColor: savedData.appState?.currentItemStrokeColor || '#000000', // Default stroke if none saved
-         viewBackgroundColor: savedData.appState?.viewBackgroundColor || '#FFFFFF', // Default background if none saved
-         // Ensure necessary defaults are present
-     };
-
-
-    console.log("Initial data prepared successfully.");
-    return {
-      elements: finalElements,
-      appState: initialAppState,
-      files,
-    };
-
-  } catch (error) {
-    console.error("Error preparing initial data:", error);
-    // Return default empty state on error (or handle differently)
-    return { elements: [], appState: {}, files: {} };
-  }
-};
-
-const ExcalidrawWrapper = ({cardId}) => {
-
-    // const [initialData, setInitialData] = useState(() => loadDataForCard(cardId));
-
- const [initialData, setInitialData] = useState(null); // Start with null
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const excalidrawApiRef = useRef(null); // Ref to access Excalidraw API
-  const navigate = useNavigate(); // Hook to navigate back
-
+  // Draw everything
   useEffect(() => {
-    let isMounted = true; // Flag to prevent state updates on unmounted component
-    setIsLoading(true);
-    setError(null);
-    setInitialData(null); // Clear previous data immediately
-
-    console.log(`Effect triggered for cardId: ${cardId}`);
-
-    prepareInitialData(cardId)
-      .then(data => {
-        if (isMounted) {
-          setInitialData(data);
-          setIsLoading(false);
-          console.log("Initial data state updated.");
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    // Draw background image
+    const bgImg = new window.Image();
+    bgImg.src = cardData.cardFrontElements[0]?.imageUrl || '/Math.jpg';
+    bgImg.onload = () => {
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(bgImg, 0, 0, width, height);
+      // Draw all lines
+      ctx.strokeStyle = '#ff0000';
+      ctx.lineWidth = 2;
+      for (const line of lines) {
+        ctx.beginPath();
+        for (let i = 0; i < line.length; i++) {
+          const pt = line[i];
+          if (i === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
         }
-      })
-      .catch(err => {
-        if (isMounted) {
-          setError("Failed to load card data. Please try again.");
-          setIsLoading(false);
-          console.error("Caught error in effect:", err);
+        ctx.stroke();
+      }
+      // Draw shapes
+      shapes.forEach((shape, i) => {
+        ctx.save();
+        ctx.strokeStyle = shape.color || '#00bcd4';
+        ctx.lineWidth = 2;
+        if (selected && selected.type === 'shape' && selected.index === i) {
+          ctx.shadowColor = '#ff0'; ctx.shadowBlur = 8;
+        }
+        if (shape.type === TOOL_RECT) {
+          const x = shape.start.x;
+          const y = shape.start.y;
+          const w = shape.end.x - shape.start.x;
+          const h = shape.end.y - shape.start.y;
+          ctx.strokeRect(x, y, w, h);
+        } else if (shape.type === TOOL_CIRCLE) {
+          const cx = (shape.start.x + shape.end.x) / 2;
+          const cy = (shape.start.y + shape.end.y) / 2;
+          const rx = Math.abs(shape.end.x - shape.start.x) / 2;
+          const ry = Math.abs(shape.end.y - shape.start.y) / 2;
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, rx, ry, 0, 0, 2 * Math.PI);
+          ctx.stroke();
+        }
+        ctx.restore();
+      });
+      // Draw images
+      images.forEach((imgObj, i) => {
+        if (imgObj.img.complete) {
+          if (selected && selected.type === 'image' && selected.index === i) {
+            ctx.save();
+            ctx.shadowColor = '#ff0'; ctx.shadowBlur = 8;
+            ctx.drawImage(imgObj.img, imgObj.x, imgObj.y, imgObj.width, imgObj.height);
+            ctx.restore();
+          } else {
+            ctx.drawImage(imgObj.img, imgObj.x, imgObj.y, imgObj.width, imgObj.height);
+          }
         }
       });
-
-    return () => {
-      isMounted = false; // Cleanup function to set flag
-      console.log(`Cleanup effect for cardId: ${cardId}`);
+      // Draw texts
+      ctx.save();
+      ctx.font = '20px Arial';
+      texts.forEach((t, i) => {
+        ctx.fillStyle = (selected && selected.type === 'text' && selected.index === i) ? '#ff0' : '#222';
+        ctx.fillText(t.text, t.x, t.y);
+      });
+      ctx.restore();
     };
-  }, [cardId]); // Re-run when cardId changes
+    if (bgImg.complete) bgImg.onload();
+  }, [width, height, cardData, lines, shapes, texts, images, selected]);
 
-  // --- Save function (only save elements *added by the user*) ---
-  const saveData = useCallback((elements, appState) => {
-    // Filter out the locked background image element before saving
-    const elementsToSave = elements.filter(el => el.id !== `bg_${cardId}`);
-    const dataToSave = JSON.stringify({
-        elements: elementsToSave,
-        // Save relevant appState (like zoom, scroll, colors)
-        appState: {
-            viewBackgroundColor: appState.viewBackgroundColor,
-            scrollX: appState.scrollX,
-            scrollY: appState.scrollY,
-            zoom: appState.zoom,
-            currentItemStrokeColor: appState.currentItemStrokeColor,
-            // Add other states you wish to preserve
-        }
-        // We don't need to save the `files` object if the background is reloaded each time
-    });
-    try {
-        localStorage.setItem(`card-drawing-${cardId}`, dataToSave);
-        console.log(`Saved user drawing for ${cardId}`);
-    } catch (err) {
-        console.error(`Failed to save data for ${cardId}:`, err);
-    }
-  }, [cardId]); // Recreate if cardId changes
 
-  // --- Debounced save ---
-   const debouncedSave = useRef(
-    debounce((elements, state) => {
-      saveData(elements, state);
-    }, 800) // Adjust debounce delay as needed (e.g., 800ms)
-  ).current;
-
-  // --- onChange handler ---
-  const handleChange = (elements, state) => {
-    // Use the debounced save function
-    debouncedSave(elements, state);
+  // Mouse/touch handlers
+  const getXY = e => {
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    return { x, y };
   };
 
-  //  const handleSaveAndNavigate = () => {
-  //   if (excalidrawApiRef.current) {
-  //     const { elements, appState } = excalidrawApiRef.current.getSceneElementsIncludingDeleted();
-  //     saveData(elements, appState); // Save the current state
-  //     navigate('/drawcard'); // Navigate back to the previous page
-  //   }
-  // };
+  const handlePointerDown = e => {
+    const { x, y } = getXY(e);
+    if (tool === TOOL_DRAW) {
+      setDrawing(true);
+      setLines(lnArr => [...lnArr, [{ x, y }]]);
+    } else if (tool === TOOL_RECT || tool === TOOL_CIRCLE) {
+      setCurrentShape({ type: tool, start: { x, y }, end: { x, y }, color: tool === TOOL_RECT ? '#00bcd4' : '#ff9800' });
+    } else if (tool === TOOL_TEXT) {
+      setTextPos({ x, y });
+      setAddingText(true);
+    } else if (tool === TOOL_IMAGE && imageFile) {
+      // Place image at click
+      const img = new window.Image();
+      img.src = URL.createObjectURL(imageFile);
+      img.onload = () => {
+        setImages(imgArr => [...imgArr, { x, y, img, width: 80, height: 80 }]);
+        setImageFile(null);
+        setPlacingImage(false);
+      };
+    } else if (tool === TOOL_SELECT) {
+      // Try to select an element (images, shapes, texts)
+      // Images (top to bottom)
+      for (let i = images.length - 1; i >= 0; i--) {
+        const img = images[i];
+        if (x >= img.x && x <= img.x + img.width && y >= img.y && y <= img.y + img.height) {
+          setSelected({ type: 'image', index: i });
+          setDragOffset({ x: x - img.x, y: y - img.y });
+          setDragging(true);
+          return;
+        }
+      }
+      // Shapes (rect/circle)
+      for (let i = shapes.length - 1; i >= 0; i--) {
+        const shape = shapes[i];
+        if (shape.type === TOOL_RECT) {
+          const sx = Math.min(shape.start.x, shape.end.x);
+          const sy = Math.min(shape.start.y, shape.end.y);
+          const ex = Math.max(shape.start.x, shape.end.x);
+          const ey = Math.max(shape.start.y, shape.end.y);
+          if (x >= sx && x <= ex && y >= sy && y <= ey) {
+            setSelected({ type: 'shape', index: i });
+            setDragOffset({ x: x - sx, y: y - sy });
+            setDragging(true);
+            return;
+          }
+        } else if (shape.type === TOOL_CIRCLE) {
+          const cx = (shape.start.x + shape.end.x) / 2;
+          const cy = (shape.start.y + shape.end.y) / 2;
+          const rx = Math.abs(shape.end.x - shape.start.x) / 2;
+          const ry = Math.abs(shape.end.y - shape.start.y) / 2;
+          if (Math.pow((x - cx) / rx, 2) + Math.pow((y - cy) / ry, 2) <= 1) {
+            setSelected({ type: 'shape', index: i });
+            setDragOffset({ x: x - cx, y: y - cy });
+            setDragging(true);
+            return;
+          }
+        }
+      }
+      // Texts
+      for (let i = texts.length - 1; i >= 0; i--) {
+        const t = texts[i];
+        // Simple bounding box for text
+        const textWidth = 100; // Approximate
+        const textHeight = 24;
+        if (x >= t.x && x <= t.x + textWidth && y <= t.y && y >= t.y - textHeight) {
+          setSelected({ type: 'text', index: i });
+          setDragOffset({ x: x - t.x, y: y - t.y });
+          setDragging(true);
+          return;
+        }
+      }
+      setSelected(null);
+    }
+  };
 
-  if (isLoading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', flexDirection: 'column' }}>
-        <CircularProgress />
-        <Typography sx={{ mt: 2, color: 'white' }}>Loading Card Editor...</Typography>
-      </Box>
-    );
+  const handlePointerMove = e => {
+    const { x, y } = getXY(e);
+    if (tool === TOOL_DRAW && drawing) {
+      setLines(lnArr => {
+        const newLines = [...lnArr];
+        newLines[newLines.length - 1] = [...newLines[newLines.length - 1], { x, y }];
+        return newLines;
+      });
+    } else if ((tool === TOOL_RECT || tool === TOOL_CIRCLE) && currentShape) {
+      setCurrentShape(shape => shape ? { ...shape, end: { x, y } } : null);
+    } else if (tool === TOOL_SELECT && dragging && selected) {
+      if (selected.type === 'image') {
+        setImages(imgArr => {
+          const newImgs = [...imgArr];
+          newImgs[selected.index] = {
+            ...newImgs[selected.index],
+            x: x - dragOffset.x,
+            y: y - dragOffset.y
+          };
+          return newImgs;
+        });
+      } else if (selected.type === 'shape') {
+        setShapes(shpArr => {
+          const newShapes = [...shpArr];
+          const shape = newShapes[selected.index];
+          const dx = x - dragOffset.x - Math.min(shape.start.x, shape.end.x);
+          const dy = y - dragOffset.y - Math.min(shape.start.y, shape.end.y);
+          newShapes[selected.index] = {
+            ...shape,
+            start: { x: shape.start.x + dx, y: shape.start.y + dy },
+            end: { x: shape.end.x + dx, y: shape.end.y + dy }
+          };
+          return newShapes;
+        });
+      } else if (selected.type === 'text') {
+        setTexts(txtArr => {
+          const newTexts = [...txtArr];
+          newTexts[selected.index] = {
+            ...newTexts[selected.index],
+            x: x - dragOffset.x,
+            y: y - dragOffset.y
+          };
+          return newTexts;
+        });
+      }
+    }
+  };
+
+  const handlePointerUp = e => {
+    setDrawing(false);
+    if ((tool === TOOL_RECT || tool === TOOL_CIRCLE) && currentShape) {
+      setShapes(shpArr => [...shpArr, currentShape]);
+      setCurrentShape(null);
+    }
+    if (tool === TOOL_SELECT && dragging) {
+      setDragging(false);
+    }
+  };
+
+
+  // Helper to serialize images (convert to dataURL)
+  const serializeImages = async (imgArr) => {
+    const serialized = await Promise.all(imgArr.map(async imgObj => {
+      let dataUrl = imgObj.dataUrl;
+      if (!dataUrl && imgObj.img) {
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = imgObj.width;
+        tempCanvas.height = imgObj.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(imgObj.img, 0, 0, imgObj.width, imgObj.height);
+        dataUrl = tempCanvas.toDataURL();
+      }
+      return {
+        x: imgObj.x,
+        y: imgObj.y,
+        width: imgObj.width,
+        height: imgObj.height,
+        dataUrl,
+      };
+    }));
+    return serialized;
+  };
+
+  // Helper to deserialize images (dataURL to Image)
+  const deserializeImages = (arr) => arr.map(obj => {
+    const img = new window.Image();
+    img.src = obj.dataUrl;
+    return { ...obj, img };
+  });
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('customCanvas_' + cardId);
+    if (savedData) {
+      try {
+        const data = JSON.parse(savedData);
+        setWidth(data.width || 300);
+        setHeight(data.height || 400);
+        setLines(data.lines || []);
+        setShapes(data.shapes || []);
+        setTexts(data.texts || []);
+        setImages(deserializeImages(data.images || []));
+      } catch (err) {
+        // Optionally log error
+      }
+    }
+    // eslint-disable-next-line
+  }, [cardId]);
+
+  const handleSave = async () => {
+    const imagesToSave = await serializeImages(images);
+    const data = {
+      width,
+      height,
+      lines,
+      shapes,
+      texts,
+      images: imagesToSave,
+    };
+    localStorage.setItem('customCanvas_' + cardId, JSON.stringify(data));
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1500);
+  };
+
+  // Handle text input
+  const handleTextInput = e => setTextInput(e.target.value);
+  const handleTextSubmit = () => {
+    if (textInput.trim()) {
+      setTexts(txtArr => [...txtArr, { x: textPos.x, y: textPos.y, text: textInput }]);
+    }
+    setTextInput('');
+    setAddingText(false);
+  };
+
+  // Handle image upload
+  const handleImageChange = e => {
+    if (e.target.files && e.target.files[0]) {
+      setImageFile(e.target.files[0]);
+      setPlacingImage(true);
+      setTool(TOOL_IMAGE);
+    }
+  };
+
+
+  if (!cardData) {
+    return <Typography color="error">Card not found in dummy data.</Typography>;
   }
 
-   if (error) {
-    return (
-       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', flexDirection: 'column' }}>
-        <Typography color="error">{error}</Typography>
-      </Box>
-    );
-  }
-
-  if (!initialData) {
-      // Should ideally not happen if loading/error states are handled correctly
-      return <Typography color="error">Failed to initialize editor.</Typography>;
-  }
 
   return (
-      <div style={{ height: "100%", width: "100%" }}>
-       {/* Use the key prop to force re-initialization on cardId change */}
-      <Excalidraw
-        key={cardId}
-        ref={excalidrawApiRef}
-        initialData={initialData} // Pass the fully prepared data
-        onChange={handleChange}
-        // theme="dark" // Optional: Set theme if desired
-      />
-      {/* <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSaveAndNavigate}
-        style={{
-          position: "absolute",
-          bottom: "20px",
-          right: "20px",
-          zIndex: 1000,
-        }}
-      >
-        Save & Go Back
-      </Button> */}
-    </div>
+    <Box sx={{ maxWidth: 520, mx: 'auto', mt: 6, p: 3, background: '#222', borderRadius: 3, boxShadow: 2 }}>
+      <Typography variant="h5" color="white" mb={2}>Custom Card Canvas</Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, mb: 2 }}>
+        <ToggleButtonGroup
+          value={tool}
+          exclusive
+          onChange={(e, val) => val && setTool(val)}
+          size="small"
+          sx={{ background: '#333', borderRadius: 2 }}
+        >
+          <ToggleButton value={TOOL_SELECT} aria-label="Select/Move" sx={{ color: '#fff' }}><MouseIcon /></ToggleButton>
+          <ToggleButton value={TOOL_DRAW} aria-label="Draw" sx={{ color: '#fff' }}><BrushIcon /></ToggleButton>
+          <ToggleButton value={TOOL_RECT} aria-label="Rectangle" sx={{ color: '#fff' }}><CropSquareIcon /></ToggleButton>
+          <ToggleButton value={TOOL_CIRCLE} aria-label="Circle" sx={{ color: '#fff' }}><RadioButtonUncheckedIcon /></ToggleButton>
+          <ToggleButton value={TOOL_TEXT} aria-label="Text" sx={{ color: '#fff' }}><TextFieldsIcon /></ToggleButton>
+        </ToggleButtonGroup>
+        <Tooltip title="Insert Image">
+          <IconButton component="label" sx={{ color: '#fff', ml: 1 }}>
+            <PhotoCamera />
+            <input type="file" accept="image/*" hidden onChange={handleImageChange} />
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+        <canvas
+          ref={canvasRef}
+          width={width}
+          height={height}
+          style={{ border: '2px solid #888', borderRadius: 8, background: '#fff', touchAction: 'none' }}
+          onMouseDown={handlePointerDown}
+          onMouseMove={handlePointerMove}
+          onMouseUp={handlePointerUp}
+          onMouseLeave={handlePointerUp}
+          onTouchStart={handlePointerDown}
+          onTouchMove={handlePointerMove}
+          onTouchEnd={handlePointerUp}
+        />
+        {currentShape && (tool === TOOL_RECT || tool === TOOL_CIRCLE) && (
+          <Typography color="info.main" fontSize={14}>Release mouse to place shape</Typography>
+        )}
+        {placingImage && imageFile && (
+          <Typography color="info.main" fontSize={14}>Click on canvas to place image</Typography>
+        )}
+        {addingText && (
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center', mt: 1 }}>
+            <TextField
+              label="Enter text"
+              value={textInput}
+              onChange={handleTextInput}
+              size="small"
+              sx={{ input: { color: 'white' }, label: { color: '#ccc' }, minWidth: 120 }}
+              InputLabelProps={{ style: { color: '#ccc' } }}
+              autoFocus
+            />
+            <Button variant="contained" color="primary" onClick={handleTextSubmit}>Add</Button>
+            <Button variant="outlined" color="secondary" onClick={() => { setAddingText(false); setTextInput(''); }}>Cancel</Button>
+          </Box>
+        )}
+        <TextField
+          label="Width (px)"
+          type="number"
+          value={width}
+          onChange={e => setWidth(Number(e.target.value))}
+          sx={{ input: { color: 'white' }, label: { color: '#ccc' } }}
+          InputLabelProps={{ style: { color: '#ccc' } }}
+          fullWidth
+        />
+        <TextField
+          label="Height (px)"
+          type="number"
+          value={height}
+          onChange={e => setHeight(Number(e.target.value))}
+          sx={{ input: { color: 'white' }, label: { color: '#ccc' } }}
+          InputLabelProps={{ style: { color: '#ccc' } }}
+          fullWidth
+        />
+        <Button variant="contained" color="primary" onClick={handleSave} sx={{ mt: 2 }}>
+          Save
+        </Button>
+        {saved && <Typography color="success.main">Saved!</Typography>}
+      </Box>
+    </Box>
   );
 };
 
-// Simple debounce function (remains the same)
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
-
-export default ExcalidrawWrapper;
+export default CustomCanvas;

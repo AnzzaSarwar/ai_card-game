@@ -1,7 +1,10 @@
+import axios from 'axios';
 import React from 'react';
 import { Link , useNavigate } from 'react-router-dom';
 
 import { Box, Grid, Button, Typography } from '@mui/material';
+
+import dummyData from '../_mock/create_with_deck_response.json'
 
 
 const CardEditor = () => {
@@ -10,6 +13,43 @@ const CardEditor = () => {
     id: `card-${index + 1}`, // Unique ID for each card
     image: '/Math.jpg', // Example image path
   }));
+
+  const [result, setResult] = React.useState<any>(null);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const boxId = localStorage.getItem('boxId');
+        const token = localStorage.getItem('token');
+        if (!boxId || !token) {
+          setResult([]);
+          return;
+        }
+        // const res = await axios.get(`http://52.203.31.162:5001/api/boxes/${boxId}`,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        const res = dummyData
+        const box = res.data.box.cards;
+        // console.log(res.data.box.cards)
+        // box.map((card: any) => {
+        //   console.log(card.cardFrontElements);
+        //   card.cardFrontElements.map((element: any) => {
+        //     console.log(element.imageUrl);
+        //   });
+        // })
+        setResult(res.data.box.cards);
+      } catch (error) {
+        setResult([]);
+        alert('Failed to fetch cards. Please try again later.');
+        console.error('Error fetching cards:', error);
+        // Optionally handle error (e.g., show notification)
+      }
+    };
+    fetchData();
+  }, []);
 
   const bottomSections = [
     { image: '/image3.png', icon: '/Vector1.png', title: 'Edit Card Box' },
@@ -67,67 +107,127 @@ const CardEditor = () => {
 
       {/* Cards Grid */}
       <Grid container spacing={2} justifyContent="center">
-        {cards.map((card, index) => (
-          <Grid
-            size={{ xs: 4, sm: 3, md: 2.4, lg: 2, xl: 1.5 }}
-            key={card.id}
-            display="flex"
-            justifyContent="center"
-          >
-            <Box
-            onClick={() => handleEdit(card.id)}
-              sx={{
-                position: 'relative',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                background: '#fff',
-                border: '2px solid #ccc',
-                height: { xs: 140, sm: 160, md: 220, lg: 220, xl: 220 },
-                width: { xs: 90, sm: 110, md: 140, lg: 160, xl: 180 },
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-                transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-                '&:hover': {
-                  transform: 'scale(1.03)', // Add a subtle hover effect
-                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                },
-              }}
+        {result?.map((card:any, index:number) => {
+          // Check for locally saved canvas preview
+          let localImage = null;
+          try {
+            const saved = localStorage.getItem('customCanvas_' + card._id);
+            if (saved) {
+              const data = JSON.parse(saved);
+              // Render a preview of the full canvas if possible
+              if (data.width && data.height) {
+                // Create a hidden canvas
+                const previewCanvas = document.createElement('canvas');
+                previewCanvas.width = data.width;
+                previewCanvas.height = data.height;
+                const ctx = previewCanvas.getContext('2d');
+                // Draw background (use original image as background)
+                const bgImg = new window.Image();
+                bgImg.src = card.cardFrontElements[0].imageUrl;
+                // Draw everything after bg loads
+                bgImg.onload = () => {
+                  ctx.clearRect(0, 0, data.width, data.height);
+                  ctx.drawImage(bgImg, 0, 0, data.width, data.height);
+                  // Draw lines
+                  ctx.strokeStyle = '#ff0000';
+                  ctx.lineWidth = 2;
+                  (data.lines || []).forEach(line => {
+                    ctx.beginPath();
+                    line.forEach((pt:any, i:number) => {
+                      if (i === 0) ctx.moveTo(pt.x, pt.y);
+                      else ctx.lineTo(pt.x, pt.y);
+                    });
+                    ctx.stroke();
+                  });
+                  // Draw shapes
+                  (data.shapes || []).forEach((shape:any) => {
+                    ctx.save();
+                    ctx.strokeStyle = shape.color || '#00bcd4';
+                    ctx.lineWidth = 2;
+                    if (shape.type === 'rect') {
+                      const x = shape.start.x;
+                      const y = shape.start.y;
+                      const w = shape.end.x - shape.start.x;
+                      const h = shape.end.y - shape.start.y;
+                      ctx.strokeRect(x, y, w, h);
+                    } else if (shape.type === 'circle') {
+                      const cx = (shape.start.x + shape.end.x) / 2;
+                      const cy = (shape.start.y + shape.end.y) / 2;
+                      const rx = Math.abs(shape.end.x - shape.start.x) / 2;
+                      const ry = Math.abs(shape.end.y - shape.start.y) / 2;
+                      ctx.beginPath();
+                      ctx.ellipse(cx, cy, rx, ry, 0, 0, 2 * Math.PI);
+                      ctx.stroke();
+                    }
+                    ctx.restore();
+                  });
+                  // Draw images
+                  (data.images || []).forEach((imgObj:any) => {
+                    if (imgObj.dataUrl) {
+                      const img = new window.Image();
+                      img.src = imgObj.dataUrl;
+                      img.onload = () => {
+                        ctx.drawImage(img, imgObj.x, imgObj.y, imgObj.width, imgObj.height);
+                        // After all drawing, set localImage
+                        localImage = previewCanvas.toDataURL();
+                      };
+                    }
+                  });
+                  // Draw texts
+                  ctx.save();
+                  ctx.font = '20px Arial';
+                  (data.texts || []).forEach((t:any) => {
+                    ctx.fillStyle = '#222';
+                    ctx.fillText(t.text, t.x, t.y);
+                  });
+                  ctx.restore();
+                  // Set localImage after all drawing
+                  localImage = previewCanvas.toDataURL();
+                };
+              }
+            }
+          } catch {}
+          return (
+            <Grid
+              size={{ xs: 4, sm: 3, md: 2.4, lg: 2, xl: 1.5 }}
+              key={card._id}
+              display="flex"
+              justifyContent="center"
             >
-              <img
-                src={card.image}
-                alt={`Card ${index + 1}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+              <Box
+                onClick={() => handleEdit(card._id)}
+                sx={{
+                  position: 'relative',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  background: '#fff',
+                  border: '2px solid #ccc',
+                  height: { xs: 140, sm: 160, md: 220, lg: 220, xl: 220 },
+                  width: { xs: 90, sm: 110, md: 140, lg: 160, xl: 180 },
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                  '&:hover': {
+                    transform: 'scale(1.03)',
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+                  },
                 }}
-              />
-              {/* {index === 0 && (
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: 8,
-                    backgroundColor: '#87739E',
-                    color: 'white',
-                    padding: '6px 12px',
-                    borderRadius: '12px',
-                    width: 80,
-                    fontSize: '0.8rem',
-                    textAlign: 'center',
-                    cursor: 'pointer',
+              >
+                <img
+                  src={localImage || card.cardFrontElements[0].imageUrl}
+                  alt={`Card ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
                   }}
-                >
-                  <Button onClick={handleEdit}>
-                  Edit
-
-                  </Button>
-                </Box>
-              )} */}
-            </Box>
-          </Grid>
-        ))}
+                />
+              </Box>
+            </Grid>
+          );
+        })}
       </Grid>
 
       {/* Bottom 3 Icon Boxes */}

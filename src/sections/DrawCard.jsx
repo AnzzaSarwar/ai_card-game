@@ -7,6 +7,8 @@ import { DashboardContent } from "src/layouts/dashboard";
 
 import ExcalidrawWrapper from "src/components/ExcalDraw";
 
+// import dummyData from '../_mock/create_with_deck_response.json'; // Import dummy data for testing
+
 export default function DrawCard() {
   const navigate = useNavigate();
 

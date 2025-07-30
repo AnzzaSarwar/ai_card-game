@@ -14,6 +14,11 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import CreateCard1 from './CreateCard1';
+import dummyData from'./dummyData.json'
+
+// Add a type assertion to help TypeScript understand the structure
+const typedDummyData = dummyData as { data: { box: any } };
+
 
 
 const cardSizeMap: any = {
@@ -39,7 +44,7 @@ const [formData, setFormData] = useState({
   fallbackFrontImageDataUri: '',
 });
 // const [result, setResult] = useState<any | null>(null);
-const [result, setResult] = useState<any | null>(false);
+const [result, setResult] = useState<any | null>(null);
 
 // Generic input handler
 const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>) => {
@@ -86,16 +91,21 @@ const handleSubmit = async () => {
   console.log('Submitting payload:', payload);
 
     try {
-      // const token = localStorage.getItem('token');
-      // const res = await axios.post('http://52.203.31.162:5001/api/boxes/create-with-deck', payload, {
-      //   headers: {
-      //     Authorization: token ? `Bearer ${token}` : '',
-      //   },
-      // });
+      const token = localStorage.getItem('token');
+      const res = await axios.post('http://52.203.31.162:5001/api/boxes/create-with-deck', payload, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : '',
+        },
+      });
 
-      // console.log('Deck created!', res.data);
+      console.log('Deck created!', res.data.data.cards || res.data.data.box.cards);
+
       // setResult(res.data.data.box.cards);
-      setResult(true);
+      setResult(res.data.data.cards);
+      localStorage.setItem("boxId", res.data.data.box._id);
+      // console.log(res.data.data);
+      
+
 
       // navigate or show success
     } catch (err) {
@@ -104,7 +114,7 @@ const handleSubmit = async () => {
   };
 
   return (
-    result ? (<CreateCard1 />) : (
+    result !== null ? (<CreateCard1 />) : (
          <DashboardContent maxWidth="xl" sx={{ color: '#fff', px: { xs: 2, sm: 3, md: 5 } }}>
       <Box>
         <h1 style={{margin: '0'}}>
